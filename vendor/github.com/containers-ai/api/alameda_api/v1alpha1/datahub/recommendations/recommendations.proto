@@ -5,6 +5,8 @@ syntax = "proto3";
 package containersai.alameda.v1alpha1.datahub.recommendations;
 
 import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
 import "alameda_api/v1alpha1/datahub/resources/metadata.proto";
 import "alameda_api/v1alpha1/datahub/resources/policies.proto";
 import "alameda_api/v1alpha1/datahub/resources/resources.proto";
@@ -74,4 +76,10 @@ message ClusterRecommendation {
     ControllerRecommendedType    recommended_type     = 3;
     ControllerRecommendedSpec    recommended_spec     = 4;
     ControllerRecommendedSpecK8s recommended_spec_k8s = 5;
+}
+
+message WriteRecommendation {
+    common.MetricType    metric_type    = 1;
+    common.ResourceQuota resource_quota = 2;
+    common.WriteData     write_data     = 3;
 }

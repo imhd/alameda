@@ -2,8 +2,9 @@ package v1alpha1
 
 import (
 	DaoPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/predictions"
+	predictions2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/predictions"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	K8sMetadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
@@ -21,7 +22,7 @@ import (
 func (s *ServiceV1alpha1) CreatePodPredictions(ctx context.Context, in *ApiPredictions.CreatePodPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreatePodPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreatePodPredictionsRequestExtended{CreatePodPredictionsRequest: *in}
+	requestExtended := predictions.CreatePodPredictionsRequestExtended{CreatePodPredictionsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -52,7 +53,7 @@ func (s *ServiceV1alpha1) ListPodPredictions(ctx context.Context, in *ApiPredict
 		return s.ListPodPredictionsDemo(ctx, in)
 	}
 
-	requestExt := FormatRequest.ListPodPredictionsRequestExtended{Request: in}
+	requestExt := predictions.ListPodPredictionsRequestExtended{Request: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiPredictions.ListPodPredictionsResponse{
 			Status: &status.Status{
@@ -83,7 +84,7 @@ func (s *ServiceV1alpha1) ListPodPredictions(ctx context.Context, in *ApiPredict
 
 	datahubPodPredictions := make([]*ApiPredictions.PodPrediction, 0)
 	for _, podPrediction := range podsPredictionMap.MetricMap {
-		podPredictionExtended := FormatResponse.PodPredictionExtended{PodPrediction: podPrediction}
+		podPredictionExtended := predictions2.PodPredictionExtended{PodPrediction: podPrediction}
 		datahubPodPrediction := podPredictionExtended.ProducePredictions()
 		datahubPodPredictions = append(datahubPodPredictions, datahubPodPrediction)
 	}
@@ -179,7 +180,7 @@ func (s *ServiceV1alpha1) ListPodPredictionsDemo(ctx context.Context, in *ApiPre
 	demoContainerPrediction.PredictedRawData = append(demoContainerPrediction.PredictedRawData, &demoPredictionDataMem)
 
 	demoPodMetric := ApiPredictions.PodPrediction{
-		ObjectMeta:           FormatResponse.NewObjectMeta(&tempObjectMeta),
+		ObjectMeta:           resources.NewObjectMeta(&tempObjectMeta),
 		ContainerPredictions: demoContainerPredictionList,
 	}
 	demoPodPredictionList = append(demoPodPredictionList, &demoPodMetric)

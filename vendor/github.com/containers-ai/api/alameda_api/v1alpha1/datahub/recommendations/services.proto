@@ -8,6 +8,7 @@ import "alameda_api/v1alpha1/datahub/common/queries.proto";
 import "alameda_api/v1alpha1/datahub/recommendations/recommendations.proto";
 import "alameda_api/v1alpha1/datahub/recommendations/types.proto";
 import "alameda_api/v1alpha1/datahub/resources/metadata.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations";
@@ -113,4 +114,19 @@ message ListClusterRecommendationsRequest {
 message ListClusterRecommendationsResponse {
     google.rpc.Status              status                  = 1;
     repeated ClusterRecommendation cluster_recommendations = 2;
+}
+
+message CreateRecommendationsRequest {
+    schemas.SchemaMeta           schema_meta     = 1;
+    repeated WriteRecommendation recommendations = 2;
+}
+
+message ListRecommendationsRequest {
+    common.QueryCondition query_condition = 1;
+    schemas.SchemaMeta    schema_meta     = 2;
+}
+
+message ListRecommendationsResponse {
+    google.rpc.Status status          = 1;
+    Recommendation    recommendations = 2;
 }

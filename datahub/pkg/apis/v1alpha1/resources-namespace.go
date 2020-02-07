@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateNamespaces(ctx context.Context, in *ApiResources
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateNamespacesRequestExtended{CreateNamespacesRequest: *in}
+	requestExtended := resources.CreateNamespacesRequestExtended{CreateNamespacesRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -42,7 +42,7 @@ func (s *ServiceV1alpha1) CreateNamespaces(ctx context.Context, in *ApiResources
 func (s *ServiceV1alpha1) ListNamespaces(ctx context.Context, in *ApiResources.ListNamespacesRequest) (*ApiResources.ListNamespacesResponse, error) {
 	scope.Debug("Request received from ListNamespaces grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListNamespacesRequestExtended{ListNamespacesRequest: in}
+	requestExt := resources.ListNamespacesRequestExtended{ListNamespacesRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiResources.ListNamespacesResponse{
 			Status: &status.Status{
@@ -66,7 +66,7 @@ func (s *ServiceV1alpha1) ListNamespaces(ctx context.Context, in *ApiResources.L
 
 	namespaces := make([]*ApiResources.Namespace, 0)
 	for _, ns := range nss {
-		namespaceExtended := FormatResponse.NamespaceExtended{Namespace: ns}
+		namespaceExtended := resources2.NamespaceExtended{Namespace: ns}
 		namespace := namespaceExtended.ProduceNamespace()
 		namespaces = append(namespaces, namespace)
 	}
@@ -82,7 +82,7 @@ func (s *ServiceV1alpha1) ListNamespaces(ctx context.Context, in *ApiResources.L
 func (s *ServiceV1alpha1) DeleteNamespaces(ctx context.Context, in *ApiResources.DeleteNamespacesRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeleteNamespaces grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.DeleteNamespacesRequestExtended{DeleteNamespacesRequest: in}
+	requestExt := resources.DeleteNamespacesRequestExtended{DeleteNamespacesRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/predictions"
+	predictions2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/predictions"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"golang.org/x/net/context"
@@ -15,7 +15,7 @@ import (
 func (s *ServiceV1alpha1) CreateNodePredictions(ctx context.Context, in *ApiPredictions.CreateNodePredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNodePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateNodePredictionsRequestExtended{CreateNodePredictionsRequest: *in}
+	requestExtended := predictions.CreateNodePredictionsRequestExtended{CreateNodePredictionsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -41,7 +41,7 @@ func (s *ServiceV1alpha1) CreateNodePredictions(ctx context.Context, in *ApiPred
 func (s *ServiceV1alpha1) ListNodePredictions(ctx context.Context, in *ApiPredictions.ListNodePredictionsRequest) (*ApiPredictions.ListNodePredictionsResponse, error) {
 	scope.Debug("Request received from ListNodePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListNodePredictionsRequestExtended{Request: in}
+	requestExt := predictions.ListNodePredictionsRequestExtended{Request: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiPredictions.ListNodePredictionsResponse{
 			Status: &status.Status{
@@ -65,7 +65,7 @@ func (s *ServiceV1alpha1) ListNodePredictions(ctx context.Context, in *ApiPredic
 
 	datahubNodePredictions := make([]*ApiPredictions.NodePrediction, 0)
 	for _, nodePrediction := range nodesPredictionMap.MetricMap {
-		nodePredictionExtended := FormatResponse.NodePredictionExtended{NodePrediction: nodePrediction}
+		nodePredictionExtended := predictions2.NodePredictionExtended{NodePrediction: nodePrediction}
 		datahubNodePrediction := nodePredictionExtended.ProducePredictions()
 		datahubNodePredictions = append(datahubNodePredictions, datahubNodePrediction)
 	}

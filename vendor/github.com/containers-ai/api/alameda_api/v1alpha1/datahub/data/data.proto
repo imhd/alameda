@@ -1,0 +1,37 @@
+// This file has messages related to read & write data
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.data;
+
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/common/queries.proto";
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data";
+
+message WriteData {
+    string                  measurement       = 1;
+    common.MetricType       metric_type       = 2;
+    common.ResourceBoundary resource_boundary = 3;
+    common.ResourceQuota    resource_quota    = 4;
+    repeated string         columns           = 5;
+    repeated common.Row     rows              = 6;
+}
+
+message ReadData {
+    string                  measurement       = 1;
+    common.MetricType       metric_type       = 2;
+    common.ResourceBoundary resource_boundary = 3;
+    common.ResourceQuota    resource_quota    = 4;
+    common.QueryCondition   query_condition   = 5;
+}
+
+message DeleteData {
+    string                  measurement       = 1;
+    common.MetricType       metric_type       = 2;
+    common.ResourceBoundary resource_boundary = 3;
+    common.ResourceQuota    resource_quota    = 4;
+    common.QueryCondition   query_condition   = 5;
+}

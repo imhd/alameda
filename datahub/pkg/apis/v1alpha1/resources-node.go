@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -19,7 +19,7 @@ func (s *ServiceV1alpha1) CreateNodes(ctx context.Context, in *ApiResources.Crea
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateNodesRequestExtended{CreateNodesRequest: *in}
+	requestExtended := resources.CreateNodesRequestExtended{CreateNodesRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -43,7 +43,7 @@ func (s *ServiceV1alpha1) CreateNodes(ctx context.Context, in *ApiResources.Crea
 func (s *ServiceV1alpha1) ListNodes(ctx context.Context, in *ApiResources.ListNodesRequest) (*ApiResources.ListNodesResponse, error) {
 	scope.Debug("Request received from ListNodes grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListNodesRequestExtended{ListNodesRequest: in}
+	requestExt := resources.ListNodesRequestExtended{ListNodesRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiResources.ListNodesResponse{
 			Status: &status.Status{
@@ -67,7 +67,7 @@ func (s *ServiceV1alpha1) ListNodes(ctx context.Context, in *ApiResources.ListNo
 
 	nodes := make([]*ApiResources.Node, 0)
 	for _, n := range ns {
-		nodeExtended := FormatResponse.NodeExtended{Node: n}
+		nodeExtended := resources2.NodeExtended{Node: n}
 		node := nodeExtended.ProduceNode()
 		nodes = append(nodes, node)
 	}
@@ -86,7 +86,7 @@ func (s *ServiceV1alpha1) ListNodes(ctx context.Context, in *ApiResources.ListNo
 func (s *ServiceV1alpha1) DeleteNodes(ctx context.Context, in *ApiResources.DeleteNodesRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeleteNodes grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.DeleteNodesRequestExtended{DeleteNodesRequest: in}
+	requestExt := resources.DeleteNodesRequestExtended{DeleteNodesRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

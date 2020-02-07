@@ -5,6 +5,8 @@ syntax = "proto3";
 package containersai.alameda.v1alpha1.datahub.plannings;
 
 import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
 import "alameda_api/v1alpha1/datahub/plannings/types.proto";
 import "alameda_api/v1alpha1/datahub/resources/metadata.proto";
 import "alameda_api/v1alpha1/datahub/resources/policies.proto";
@@ -95,4 +97,10 @@ message ClusterPlanning {
     google.protobuf.Timestamp  start_time          = 6;
     google.protobuf.Timestamp  end_time            = 7;
     repeated Planning          plannings           = 8;
+}
+
+message WritePlanning {
+    common.MetricType    metric_type    = 1;
+    common.ResourceQuota resource_quota = 2;
+    common.WriteData     write_data     = 3;
 }

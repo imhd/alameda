@@ -4,6 +4,8 @@ syntax = "proto3";
 
 package containersai.alameda.v1alpha1.datahub;
 
+import "alameda_api/v1alpha1/datahub/applications/services.proto";
+import "alameda_api/v1alpha1/datahub/data/services.proto";
 import "alameda_api/v1alpha1/datahub/events/services.proto";
 import "alameda_api/v1alpha1/datahub/gpu/services.proto";
 import "alameda_api/v1alpha1/datahub/licenses/services.proto";
@@ -13,6 +15,7 @@ import "alameda_api/v1alpha1/datahub/predictions/services.proto";
 import "alameda_api/v1alpha1/datahub/rawdata/services.proto";
 import "alameda_api/v1alpha1/datahub/recommendations/services.proto";
 import "alameda_api/v1alpha1/datahub/resources/services.proto";
+import "alameda_api/v1alpha1/datahub/schemas/services.proto";
 import "alameda_api/v1alpha1/datahub/scores/services.proto";
 import "alameda_api/v1alpha1/datahub/weavescope/services.proto";
 import "google/protobuf/empty.proto";
@@ -22,6 +25,26 @@ option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub";
 
 // Service for providing data stored in the backend
 service DatahubService {
+    // Applications --------------------------------------------------
+    rpc CreateApps(applications.CreateApplicationsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListApps(applications.ListApplicationsRequest)
+        returns (applications.ListApplicationsResponse){}
+
+    rpc DeleteApps(applications.DeleteApplicationsRequest)
+        returns (google.rpc.Status){}
+
+    // Data --------------------------------------------------
+    rpc ReadData(data.ReadDataRequest)
+        returns (data.ReadDataResponse){}
+
+    rpc WriteData(data.WriteDataRequest)
+        returns (google.rpc.Status){}
+
+    rpc DeleteData(data.DeleteDataRequest)
+        returns (google.rpc.Status){}
+
     // Events --------------------------------------------------
     rpc CreateEvents(events.CreateEventsRequest)
         returns (google.rpc.Status){}
@@ -47,6 +70,9 @@ service DatahubService {
         returns (licenses.GetLicenseResponse){}
 
     // Metrics --------------------------------------------------
+    rpc CreateMetrics(metrics.CreateMetricsRequest)
+        returns (google.rpc.Status){}
+
     rpc CreatePodMetrics(metrics.CreatePodMetricsRequest)
         returns (google.rpc.Status){}
 
@@ -64,6 +90,9 @@ service DatahubService {
 
     rpc CreateClusterMetrics(metrics.CreateClusterMetricsRequest)
         returns (google.rpc.Status){}
+
+    rpc ListMetrics(metrics.ListMetricsRequest)
+        returns (metrics.ListMetricsResponse){}
 
     rpc ListPodMetrics(metrics.ListPodMetricsRequest)
         returns (metrics.ListPodMetricsResponse){}
@@ -88,6 +117,9 @@ service DatahubService {
         returns (google.rpc.Status){}
 
     // Plannings --------------------------------------------------
+    rpc CreatePlannings(plannings.CreatePlanningsRequest)
+        returns (google.rpc.Status){}
+
     rpc CreatePodPlannings(plannings.CreatePodPlanningsRequest)
         returns (google.rpc.Status){}
 
@@ -105,6 +137,9 @@ service DatahubService {
 
     rpc CreateClusterPlannings(plannings.CreateClusterPlanningsRequest)
         returns (google.rpc.Status){}
+
+    rpc ListPlannings(plannings.ListPlanningsRequest)
+        returns (plannings.ListPlanningsResponse){}
 
     rpc ListPodPlannings(plannings.ListPodPlanningsRequest)
         returns (plannings.ListPodPlanningsResponse){}
@@ -125,6 +160,9 @@ service DatahubService {
         returns (plannings.ListClusterPlanningsResponse){}
 
     // Predictions --------------------------------------------------
+    rpc CreatePredictions(predictions.CreatePredictionsRequest)
+        returns (google.rpc.Status){}
+
     rpc CreatePodPredictions(predictions.CreatePodPredictionsRequest)
         returns (google.rpc.Status){}
 
@@ -142,6 +180,9 @@ service DatahubService {
 
     rpc CreateClusterPredictions(predictions.CreateClusterPredictionsRequest)
         returns (google.rpc.Status){}
+
+    rpc ListPredictions(predictions.ListPredictionsRequest)
+        returns (predictions.ListPredictionsResponse){}
 
     rpc ListPodPredictions(predictions.ListPodPredictionsRequest)
         returns (predictions.ListPodPredictionsResponse){}
@@ -169,6 +210,9 @@ service DatahubService {
         returns (google.rpc.Status){}
 
     // Recommendations --------------------------------------------------
+    rpc CreateRecommendations(recommendations.CreateRecommendationsRequest)
+        returns (google.rpc.Status){}
+
     rpc CreatePodRecommendations(recommendations.CreatePodRecommendationsRequest)
         returns (google.rpc.Status){}
 
@@ -186,6 +230,9 @@ service DatahubService {
 
     rpc CreateClusterRecommendations(recommendations.CreateClusterRecommendationsRequest)
         returns (google.rpc.Status){}
+
+    rpc ListRecommendations(recommendations.ListRecommendationsRequest)
+        returns (recommendations.ListRecommendationsResponse){}
 
     rpc ListPodRecommendations(recommendations.ListPodRecommendationsRequest)
         returns (recommendations.ListPodRecommendationsResponse){}
@@ -270,6 +317,16 @@ service DatahubService {
         returns (google.rpc.Status){}
 
     rpc DeleteClusters(resources.DeleteClustersRequest)
+        returns (google.rpc.Status){}
+
+    // Schemas --------------------------------------------------
+    rpc CreateSchemas(schemas.CreateSchemasRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListSchemas(schemas.ListSchemasRequest)
+        returns (schemas.ListSchemasResponse){}
+
+    rpc DeleteSchemas(schemas.DeleteSchemasRequest)
         returns (google.rpc.Status){}
 
     // Scores --------------------------------------------------

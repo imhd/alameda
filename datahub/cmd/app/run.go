@@ -32,6 +32,7 @@ var (
 			initLogger()
 			initEventMgt()
 			initKeycode()
+			initSchema()
 			initNotifier()
 			setLoggerScopesWithConfig(*config.Log)
 			displayConfig()

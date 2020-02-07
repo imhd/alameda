@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateControllers(ctx context.Context, in *ApiResource
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateControllersRequestExtended{CreateControllersRequest: *in}
+	requestExtended := resources.CreateControllersRequestExtended{CreateControllersRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -42,7 +42,7 @@ func (s *ServiceV1alpha1) CreateControllers(ctx context.Context, in *ApiResource
 func (s *ServiceV1alpha1) ListControllers(ctx context.Context, in *ApiResources.ListControllersRequest) (*ApiResources.ListControllersResponse, error) {
 	scope.Debug("Request received from ListControllers grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListControllersRequestExtended{ListControllersRequest: in}
+	requestExt := resources.ListControllersRequestExtended{ListControllersRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiResources.ListControllersResponse{
 			Status: &status.Status{
@@ -66,7 +66,7 @@ func (s *ServiceV1alpha1) ListControllers(ctx context.Context, in *ApiResources.
 
 	controllers := make([]*ApiResources.Controller, 0)
 	for _, ctl := range ctls {
-		controllerExtended := FormatResponse.ControllerExtended{Controller: ctl}
+		controllerExtended := resources2.ControllerExtended{Controller: ctl}
 		controller := controllerExtended.ProduceController()
 		controllers = append(controllers, controller)
 	}
@@ -84,7 +84,7 @@ func (s *ServiceV1alpha1) ListControllers(ctx context.Context, in *ApiResources.
 func (s *ServiceV1alpha1) DeleteControllers(ctx context.Context, in *ApiResources.DeleteControllersRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeleteControllers grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.DeleteControllersRequestExtended{DeleteControllersRequest: in}
+	requestExt := resources.DeleteControllersRequestExtended{DeleteControllersRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

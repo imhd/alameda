@@ -1,0 +1,21 @@
+// This file has messages related to metric data
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.metrics;
+
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics";
+
+message Metric {
+    schemas.SchemaMeta  schema_meta = 1;
+    repeated MetricData metric_data = 2;
+}
+
+message MetricData {
+    common.MetricType metric_type = 1;
+    common.ReadData   read_data   = 2;
+}

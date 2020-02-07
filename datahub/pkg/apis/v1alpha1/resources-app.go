@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateApplications(ctx context.Context, in *ApiResourc
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateApplicationsRequestExtended{CreateApplicationsRequest: *in}
+	requestExtended := resources.CreateApplicationsRequestExtended{CreateApplicationsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -42,7 +42,7 @@ func (s *ServiceV1alpha1) CreateApplications(ctx context.Context, in *ApiResourc
 func (s *ServiceV1alpha1) ListApplications(ctx context.Context, in *ApiResources.ListApplicationsRequest) (*ApiResources.ListApplicationsResponse, error) {
 	scope.Debug("Request received from ListApplications grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListApplicationsRequestExtended{ListApplicationsRequest: in}
+	requestExt := resources.ListApplicationsRequestExtended{ListApplicationsRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiResources.ListApplicationsResponse{
 			Status: &status.Status{
@@ -66,7 +66,7 @@ func (s *ServiceV1alpha1) ListApplications(ctx context.Context, in *ApiResources
 
 	applications := make([]*ApiResources.Application, 0)
 	for _, app := range apps {
-		applicationExtended := FormatResponse.ApplicationExtended{Application: app}
+		applicationExtended := resources2.ApplicationExtended{Application: app}
 		application := applicationExtended.ProduceApplication()
 		applications = append(applications, application)
 	}
@@ -82,7 +82,7 @@ func (s *ServiceV1alpha1) ListApplications(ctx context.Context, in *ApiResources
 func (s *ServiceV1alpha1) DeleteApplications(ctx context.Context, in *ApiResources.DeleteApplicationsRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeleteApplications grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.DeleteApplicationsRequestExtended{DeleteApplicationsRequest: in}
+	requestExt := resources.DeleteApplicationsRequestExtended{DeleteApplicationsRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

@@ -1,0 +1,28 @@
+// This file has messages related general definitions
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.common;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common";
+
+message WriteData {
+    repeated string columns = 1;
+    repeated Row    rows    = 2;
+}
+
+message ReadData {
+    repeated Group groups = 1;
+}
+
+message Row {
+    google.protobuf.Timestamp time   = 1;
+    repeated string           values = 2;
+}
+
+message Group {
+    repeated string columns = 1;
+    repeated Row    rows    = 2;
+}

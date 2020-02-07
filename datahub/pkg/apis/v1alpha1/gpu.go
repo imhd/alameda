@@ -4,8 +4,9 @@ import (
 	DaoGpuInflux "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
 	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb/nvidia"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/gpu"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
+	gpu2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/gpu"
 	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
@@ -85,7 +86,7 @@ func (s *ServiceV1alpha1) ListGpuMetrics(ctx context.Context, in *ApiGpu.ListGpu
 
 	gpuMetrics := make([]*ApiGpu.GpuMetric, 0)
 	for _, metric := range metrics {
-		gpuMetricExtended := FormatResponse.GpuMetricExtended{GpuMetric: metric}
+		gpuMetricExtended := gpu2.GpuMetricExtended{GpuMetric: metric}
 		datahubGpuMetric := gpuMetricExtended.ProduceMetrics()
 		gpuMetrics = append(gpuMetrics, datahubGpuMetric)
 	}
@@ -124,7 +125,7 @@ func (s *ServiceV1alpha1) ListGpuPredictions(ctx context.Context, in *ApiGpu.Lis
 	for metricType, predictions := range predictionsMap {
 		for _, prediction := range predictions {
 			gpu := &ApiGpu.GpuPrediction{}
-			gpuPredictionExtended := FormatResponse.GpuPredictionExtended{GpuPrediction: prediction}
+			gpuPredictionExtended := gpu2.GpuPredictionExtended{GpuPrediction: prediction}
 			gpuPrediction := gpuPredictionExtended.ProducePredictions(metricType)
 			found := false
 
@@ -194,7 +195,7 @@ func (s *ServiceV1alpha1) ListGpuPredictions(ctx context.Context, in *ApiGpu.Lis
 func (s *ServiceV1alpha1) CreateGpuPredictions(ctx context.Context, in *ApiGpu.CreateGpuPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateGpuPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateGpuPredictionsRequestExtended{CreateGpuPredictionsRequest: *in}
+	requestExtended := gpu.CreateGpuPredictionsRequestExtended{CreateGpuPredictionsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -219,20 +220,20 @@ func (s *ServiceV1alpha1) CreateGpuPredictions(ctx context.Context, in *ApiGpu.C
 func generateGpuMetricTypes(in *ApiGpu.ListGpuMetricsRequest) []FormatEnum.MetricType {
 	metricTypes := make([]FormatEnum.MetricType, 0)
 	for _, metricType := range in.GetMetricTypes() {
-		metricTypes = append(metricTypes, FormatRequest.MetricTypeNameMap[metricType])
+		metricTypes = append(metricTypes, metrics.MetricTypeNameMap[metricType])
 	}
 	if len(metricTypes) == 0 {
 		if DaoGpuInflux.GpuMetricUsedMap[FormatEnum.TypeGpuDutyCycle] == true {
-			metricTypes = append(metricTypes, FormatRequest.MetricTypeNameMap[ApiCommon.MetricType_DUTY_CYCLE])
+			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_DUTY_CYCLE])
 		}
 		if DaoGpuInflux.GpuMetricUsedMap[FormatEnum.TypeGpuMemoryUsedBytes] == true {
-			metricTypes = append(metricTypes, FormatRequest.MetricTypeNameMap[ApiCommon.MetricType_MEMORY_USAGE_BYTES])
+			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_MEMORY_USAGE_BYTES])
 		}
 		if DaoGpuInflux.GpuMetricUsedMap[FormatEnum.TypeGpuPowerUsageMilliWatts] == true {
-			metricTypes = append(metricTypes, FormatRequest.MetricTypeNameMap[ApiCommon.MetricType_POWER_USAGE_WATTS])
+			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_POWER_USAGE_WATTS])
 		}
 		if DaoGpuInflux.GpuMetricUsedMap[FormatEnum.TypeGpuTemperatureCelsius] == true {
-			metricTypes = append(metricTypes, FormatRequest.MetricTypeNameMap[ApiCommon.MetricType_TEMPERATURE_CELSIUS])
+			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_TEMPERATURE_CELSIUS])
 		}
 	}
 	return metricTypes

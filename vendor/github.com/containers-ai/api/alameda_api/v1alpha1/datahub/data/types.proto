@@ -1,0 +1,25 @@
+// This file has messages related to read & write data
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.data;
+
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data";
+
+message Data {
+    schemas.SchemaMeta schema_meta = 1;
+    repeated Rawdata   rawdata     = 2;
+}
+
+message Rawdata {
+    string                  measurement       = 1;
+    common.MetricType       metric_type       = 2;
+    common.ResourceBoundary resource_boundary = 3;
+    common.ResourceQuota    resource_quota    = 4;
+    repeated common.Group   groups            = 5;
+}

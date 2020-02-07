@@ -6,6 +6,8 @@ package datahub
 import (
 	context "context"
 	fmt "fmt"
+	applications "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications"
+	data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	licenses "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/licenses"
@@ -15,6 +17,7 @@ import (
 	rawdata "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
 	recommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	scores "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/scores"
 	weavescope "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/weavescope"
 	proto "github.com/golang/protobuf/proto"
@@ -42,123 +45,141 @@ func init() {
 }
 
 var fileDescriptor_debe19e3ad2e68a0 = []byte{
-	// 1848 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x9b, 0xdd, 0x8b, 0xdc, 0x54,
-	0x1f, 0xc7, 0x7b, 0xe0, 0xe1, 0xa1, 0x9e, 0x96, 0xb5, 0x9d, 0xb6, 0xbb, 0xdb, 0xed, 0x9b, 0x14,
-	0xbc, 0xf0, 0xc2, 0x0c, 0x7d, 0x53, 0xb4, 0x17, 0xb6, 0xfb, 0xd2, 0xd9, 0x76, 0x5f, 0x3a, 0x9d,
-	0x69, 0xbb, 0xda, 0x17, 0x25, 0x9b, 0x39, 0x9d, 0x8d, 0x64, 0x92, 0x98, 0x64, 0xa6, 0x16, 0x8a,
-	0x88, 0xa8, 0x88, 0x28, 0x28, 0x94, 0xea, 0x8d, 0x08, 0x0a, 0x42, 0x51, 0x44, 0xd1, 0x2a, 0xa8,
-	0x58, 0xbc, 0x10, 0xa5, 0xde, 0x08, 0x5e, 0x09, 0x82, 0xff, 0x86, 0x97, 0x32, 0x93, 0xf3, 0x96,
-	0x93, 0xe4, 0x24, 0x39, 0xc9, 0xc2, 0x7a, 0xd7, 0x76, 0xe6, 0xf7, 0xf9, 0x7e, 0xcf, 0xe4, 0xf7,
-	0x72, 0x92, 0x9c, 0xc2, 0x47, 0x74, 0x4b, 0xef, 0xa1, 0x8e, 0xfe, 0x9c, 0xee, 0x9a, 0xf5, 0xc1,
-	0x21, 0xdd, 0x72, 0xd7, 0xf4, 0x43, 0xf5, 0x8e, 0x1e, 0xe8, 0x6b, 0xfd, 0xd5, 0xba, 0x8f, 0xbc,
-	0x01, 0xf2, 0x34, 0xd7, 0x73, 0x02, 0xa7, 0xf6, 0xb0, 0xe1, 0xd8, 0x81, 0x6e, 0xda, 0xc8, 0xf3,
-	0x75, 0x53, 0xc3, 0x71, 0x1a, 0x89, 0xd1, 0x70, 0xcc, 0xd4, 0x61, 0x29, 0x11, 0x0d, 0x90, 0x1d,
-	0xf8, 0x23, 0xb0, 0x69, 0x20, 0x3f, 0x44, 0x4f, 0xd5, 0xa5, 0x31, 0x5d, 0xb7, 0x2f, 0x06, 0x1c,
-	0x95, 0x06, 0x58, 0xa6, 0x81, 0x6c, 0x1f, 0xc5, 0x64, 0x8e, 0x48, 0xa3, 0x7a, 0x28, 0xf0, 0x4c,
-	0x23, 0x16, 0x74, 0x4c, 0x1a, 0xe4, 0x5a, 0xba, 0x6d, 0x9b, 0x76, 0x37, 0x16, 0xf6, 0xb8, 0x3c,
-	0xcc, 0x43, 0x1d, 0xd3, 0x08, 0x4c, 0xc7, 0x2e, 0x68, 0xd2, 0xd3, 0xaf, 0x0f, 0xff, 0x28, 0x06,
-	0x1d, 0x97, 0x07, 0x21, 0xc3, 0xe9, 0xf5, 0x90, 0xdd, 0xd1, 0x13, 0x15, 0x8f, 0x65, 0x04, 0xfb,
-	0x4e, 0xdf, 0x33, 0xe2, 0xbf, 0xa6, 0xfc, 0x42, 0xfb, 0x86, 0xe3, 0xc5, 0x63, 0x1e, 0x93, 0xc6,
-	0x5c, 0x47, 0xfa, 0x00, 0xf9, 0x86, 0xe3, 0x22, 0x31, 0x6e, 0x4f, 0xd7, 0x71, 0xba, 0x16, 0xaa,
-	0x8f, 0xfe, 0xb6, 0xda, 0xbf, 0x56, 0x47, 0x3d, 0x37, 0xb8, 0x81, 0x3f, 0x9c, 0xc0, 0x1f, 0x7a,
-	0xae, 0x51, 0xf7, 0x03, 0x3d, 0xe8, 0xe3, 0xa8, 0xc3, 0xff, 0xac, 0xc1, 0xb1, 0xd9, 0x90, 0xdd,
-	0x0e, 0x79, 0xb5, 0x2e, 0xdc, 0x3a, 0xe3, 0x21, 0x3d, 0x40, 0x73, 0xa3, 0x44, 0xac, 0x9d, 0xd4,
-	0x72, 0x65, 0xb5, 0x16, 0xe6, 0xad, 0xc6, 0xc7, 0xb6, 0xd0, 0x0b, 0x7d, 0xe4, 0x07, 0x53, 0x35,
-	0x2d, 0xd4, 0xd7, 0x3c, 0xd7, 0xd0, 0xda, 0x23, 0xfd, 0x83, 0x9b, 0x6a, 0xef, 0x02, 0x08, 0x17,
-	0x4d, 0x3f, 0xc0, 0x3a, 0x4f, 0x15, 0xd3, 0x61, 0x91, 0x44, 0xe5, 0x84, 0x3a, 0xc0, 0x77, 0x1d,
-	0xdb, 0x47, 0x07, 0x37, 0xd5, 0x02, 0xb8, 0x33, 0x5c, 0x40, 0xc3, 0xed, 0x37, 0x59, 0x06, 0xd6,
-	0x4e, 0xe5, 0x64, 0x77, 0xdd, 0xbe, 0x96, 0x04, 0x90, 0xff, 0x12, 0xaf, 0x01, 0xb8, 0x79, 0x68,
-	0xa7, 0xe1, 0xf6, 0xfd, 0xda, 0x93, 0x05, 0xa4, 0x48, 0x10, 0xc1, 0x1f, 0x57, 0x8a, 0xa5, 0xab,
-	0x7f, 0x0f, 0xc0, 0x31, 0xfc, 0xcf, 0x4b, 0x61, 0xa9, 0xd7, 0x4e, 0x14, 0x27, 0xe2, 0x50, 0xe2,
-	0xe9, 0x64, 0x09, 0x02, 0x75, 0xf6, 0x31, 0x80, 0x35, 0xfc, 0x21, 0x7f, 0x59, 0x66, 0x8b, 0xb3,
-	0x13, 0x2e, 0xca, 0x5c, 0x49, 0x0a, 0x75, 0xf9, 0x3c, 0x84, 0x0d, 0x14, 0x2c, 0x86, 0xbd, 0xb5,
-	0x36, 0x4e, 0xae, 0x35, 0x29, 0x49, 0x6d, 0x6e, 0x58, 0x92, 0x53, 0xd3, 0x39, 0xe5, 0x48, 0x8f,
-	0xd6, 0x18, 0x93, 0xd3, 0x72, 0xe1, 0xb6, 0x30, 0xd1, 0x9a, 0x4e, 0x87, 0x5c, 0xac, 0xbc, 0x59,
-	0x8a, 0xfb, 0xb8, 0x26, 0x02, 0xe4, 0x59, 0xfa, 0x12, 0x9c, 0x08, 0x03, 0x66, 0x1c, 0x3b, 0xf0,
-	0x1c, 0xcb, 0x42, 0x1e, 0x11, 0x5e, 0x52, 0x12, 0x8e, 0x71, 0xe4, 0xfa, 0x2f, 0x03, 0x38, 0x19,
-	0x06, 0x9e, 0x74, 0x5d, 0xcb, 0x34, 0x46, 0xad, 0x9a, 0x38, 0x58, 0x56, 0x72, 0x10, 0x07, 0xc9,
-	0x2d, 0xdc, 0x84, 0xe3, 0x61, 0xe0, 0xb2, 0xde, 0x43, 0xbe, 0xab, 0x1b, 0x88, 0xe8, 0x2f, 0x2a,
-	0xe9, 0x8b, 0x18, 0xb9, 0xba, 0x07, 0xb7, 0xe3, 0x30, 0xa7, 0x43, 0x85, 0x1b, 0x6a, 0xc2, 0x8c,
-	0x20, 0xd7, 0x7c, 0x91, 0x34, 0xc4, 0x19, 0xab, 0xef, 0x07, 0xec, 0x8a, 0x9f, 0x51, 0xbb, 0xe2,
-	0x11, 0x88, 0x5c, 0xf9, 0x43, 0xdc, 0x8c, 0xb8, 0xfc, 0x9e, 0x2d, 0x28, 0x1a, 0x0d, 0x2f, 0x5a,
-	0xee, 0x69, 0x14, 0x5a, 0x82, 0x5f, 0x03, 0xb8, 0x6b, 0xf8, 0x61, 0xbc, 0x1e, 0x16, 0x14, 0x24,
-	0x52, 0xab, 0x61, 0xb1, 0x1a, 0x18, 0xb5, 0xfd, 0x2d, 0x80, 0xe3, 0xc3, 0xef, 0x24, 0x54, 0x91,
-	0x8a, 0x54, 0x7a, 0x0d, 0x2d, 0x55, 0x44, 0xa3, 0xce, 0xbf, 0x04, 0x70, 0xe7, 0xf0, 0x4b, 0xb1,
-	0xea, 0x3b, 0xa3, 0xa0, 0x94, 0x56, 0x7b, 0x0b, 0x95, 0xb0, 0xa8, 0xe7, 0x8f, 0x00, 0x7c, 0x70,
-	0xf4, 0x15, 0xae, 0x66, 0x55, 0x32, 0x30, 0xa1, 0x62, 0x4f, 0x95, 0xc5, 0x50, 0x93, 0x9f, 0xe2,
-	0xf1, 0x2a, 0x14, 0xf9, 0xbc, 0x4a, 0xe6, 0x25, 0x96, 0xf8, 0xe9, 0x0a, 0x48, 0xd4, 0xed, 0x51,
-	0xf8, 0xbf, 0xa6, 0x69, 0x77, 0x53, 0x07, 0x6c, 0x72, 0x3f, 0x19, 0xc0, 0x1a, 0x9d, 0x77, 0x4d,
-	0x72, 0x4f, 0x92, 0x3b, 0x73, 0xe8, 0x5d, 0x8c, 0x16, 0x87, 0xc8, 0xfb, 0xd8, 0xab, 0x00, 0xee,
-	0x16, 0xe7, 0x1d, 0xd3, 0x3f, 0xa7, 0xa8, 0x9f, 0xc0, 0x92, 0xdb, 0x78, 0x1d, 0xc0, 0xa9, 0xd8,
-	0xd0, 0x63, 0x3e, 0x5a, 0x8a, 0x3e, 0x92, 0x60, 0x72, 0x23, 0xaf, 0xd0, 0x31, 0x4e, 0xab, 0x86,
-	0xd9, 0x68, 0x2a, 0xda, 0x88, 0xa3, 0xb2, 0xc6, 0xda, 0x0e, 0x36, 0x08, 0x99, 0xfc, 0x82, 0xaa,
-	0x3c, 0x4f, 0xc9, 0xda, 0x45, 0x8d, 0x47, 0x66, 0x21, 0x13, 0x5f, 0x56, 0x4d, 0x05, 0x01, 0x24,
-	0xd7, 0xbf, 0x03, 0xe0, 0x36, 0x3c, 0xd1, 0x98, 0xf4, 0x7c, 0x61, 0x69, 0x11, 0x51, 0xb4, 0xd0,
-	0x65, 0x24, 0x5a, 0xe8, 0x3f, 0x02, 0x38, 0x11, 0x9d, 0x66, 0xcc, 0xf2, 0x59, 0x25, 0x21, 0x49,
-	0xd9, 0x34, 0xab, 0x03, 0xd2, 0x05, 0xfc, 0x04, 0xe0, 0xa4, 0x30, 0xd5, 0xca, 0xe4, 0x7a, 0x1a,
-	0x8a, 0x2c, 0xe1, 0x5c, 0x85, 0x44, 0xba, 0x86, 0xef, 0xf1, 0x76, 0x21, 0xa1, 0x5a, 0x97, 0x95,
-	0xf4, 0xd2, 0x6b, 0xf5, 0x6c, 0x65, 0x3c, 0xea, 0xfe, 0x33, 0x00, 0xb7, 0x93, 0xb9, 0xc7, 0x8c,
-	0xab, 0x65, 0x69, 0x62, 0x95, 0x9f, 0xa9, 0x02, 0x45, 0xed, 0xde, 0xc5, 0x3b, 0x9c, 0x58, 0x73,
-	0x58, 0x54, 0xcb, 0xce, 0x94, 0xd6, 0xb0, 0x54, 0x11, 0x8d, 0xfa, 0xbe, 0x49, 0x6e, 0x13, 0x86,
-	0x95, 0xcc, 0xdd, 0xa0, 0xe7, 0xce, 0x10, 0x16, 0xa3, 0x25, 0x81, 0xe4, 0x3d, 0xed, 0x4d, 0x00,
-	0xf7, 0xc4, 0xc6, 0x22, 0xe7, 0xe2, 0x82, 0xb2, 0x8b, 0x44, 0x9e, 0xdc, 0xcc, 0x5b, 0x00, 0xee,
-	0x8d, 0xcf, 0x46, 0xce, 0xcd, 0x45, 0x65, 0x37, 0xc9, 0x40, 0xb9, 0x9d, 0x37, 0xe8, 0xdc, 0x67,
-	0x75, 0xc2, 0x99, 0x39, 0xaf, 0x6c, 0x26, 0x09, 0x97, 0x35, 0xfa, 0x76, 0x71, 0xe3, 0x92, 0x33,
-	0x71, 0x56, 0xdd, 0x44, 0x94, 0x94, 0xb9, 0x13, 0x9b, 0x8c, 0x8e, 0x4c, 0xce, 0x43, 0x4b, 0x3d,
-	0x47, 0x62, 0x30, 0xb9, 0x8d, 0xaf, 0xf0, 0x66, 0x5b, 0x28, 0x95, 0x45, 0x05, 0x03, 0x71, 0x4c,
-	0xe1, 0x0a, 0xcf, 0xa0, 0xd1, 0x0a, 0xff, 0x15, 0xc0, 0xdd, 0xc2, 0xc0, 0xe3, 0xcc, 0xb7, 0x15,
-	0xe5, 0xa4, 0xf5, 0x75, 0xbe, 0x5a, 0x28, 0x5d, 0xca, 0x6f, 0x00, 0x4e, 0x89, 0x83, 0xaf, 0x64,
-	0x49, 0xa4, 0xe3, 0xc8, 0x62, 0x2e, 0x54, 0x4c, 0xa5, 0xab, 0xf9, 0x19, 0xef, 0x31, 0x12, 0xcb,
-	0xbb, 0xa5, 0xa8, 0x2a, 0x2b, 0xee, 0x76, 0xa5, 0x4c, 0xba, 0x8e, 0x6f, 0x00, 0xdc, 0x41, 0x47,
-	0x23, 0xb7, 0x04, 0xd5, 0x4c, 0x4e, 0x69, 0x0d, 0xcb, 0x55, 0xe1, 0xa8, 0xf1, 0x7b, 0x78, 0x83,
-	0x94, 0xd0, 0x54, 0x9a, 0xaa, 0x19, 0x9c, 0xda, 0x52, 0xce, 0x55, 0x48, 0xa4, 0x2b, 0xb8, 0x0d,
-	0xe0, 0x96, 0x16, 0xd2, 0x3b, 0xad, 0xf0, 0xd5, 0x59, 0xee, 0x57, 0x3e, 0xf8, 0x55, 0x9b, 0xc6,
-	0xc5, 0x12, 0x9f, 0xd3, 0x65, 0x10, 0xd4, 0xd8, 0x1a, 0xdc, 0xba, 0xe2, 0x99, 0x01, 0x22, 0xc6,
-	0x8a, 0x52, 0xf9, 0xe0, 0xcc, 0x31, 0x39, 0x49, 0x37, 0x1e, 0xad, 0xe8, 0xdb, 0xc0, 0xdc, 0x13,
-	0x5b, 0x78, 0x8b, 0xa8, 0xa5, 0x01, 0xe5, 0x56, 0x6e, 0x03, 0x78, 0x40, 0xdc, 0x7d, 0x88, 0x8e,
-	0xae, 0x96, 0x72, 0x94, 0xca, 0x95, 0x1b, 0x7b, 0x1f, 0xc0, 0x87, 0x62, 0x1b, 0x11, 0xd1, 0xd9,
-	0xb3, 0xa5, 0x9c, 0xa5, 0x83, 0xe5, 0xd6, 0x6e, 0x01, 0xb8, 0x5f, 0xd8, 0x96, 0x88, 0xc6, 0xae,
-	0x94, 0x32, 0x96, 0x86, 0xcd, 0xdc, 0x98, 0xee, 0x66, 0x1b, 0x15, 0xd1, 0xd1, 0x4a, 0x39, 0x47,
-	0x71, 0xa2, 0xdc, 0xcc, 0x3b, 0x74, 0x63, 0x8a, 0x9b, 0x81, 0xe8, 0xe7, 0x52, 0xb9, 0xa4, 0x4a,
-	0x84, 0xca, 0x2d, 0xfd, 0x82, 0x5b, 0x67, 0x42, 0xcd, 0x9d, 0x57, 0x34, 0x93, 0x8c, 0x2b, 0x3a,
-	0x85, 0xf3, 0x52, 0x69, 0xa7, 0xfa, 0x1d, 0xc0, 0x03, 0xa3, 0x71, 0x3d, 0xd0, 0x4d, 0x4b, 0x5f,
-	0xb5, 0xd0, 0x7f, 0x7f, 0x49, 0x7f, 0x01, 0xb8, 0x2f, 0xba, 0x9d, 0x12, 0x17, 0x74, 0xb9, 0x84,
-	0x74, 0x66, 0x0f, 0xba, 0xb2, 0x3e, 0x70, 0xba, 0xbc, 0xbf, 0x01, 0xdc, 0x2f, 0x6c, 0xb0, 0xaa,
-	0x6a, 0x19, 0x72, 0x2c, 0x59, 0xe0, 0xd5, 0x75, 0xa2, 0xd3, 0x15, 0xfe, 0x09, 0xe0, 0xde, 0xc8,
-	0xc6, 0xab, 0xaa, 0x82, 0x97, 0x41, 0xc9, 0xea, 0x2e, 0xaf, 0x0b, 0x9b, 0xae, 0xed, 0x3e, 0x7e,
-	0x34, 0x98, 0xd4, 0x57, 0xcb, 0x54, 0x84, 0xa4, 0xab, 0x5e, 0xac, 0x1a, 0x4b, 0x17, 0xf3, 0x07,
-	0xbe, 0x21, 0x49, 0xe9, 0xcb, 0x4f, 0x97, 0xa9, 0x04, 0x69, 0x57, 0x7e, 0x66, 0x1d, 0xc8, 0x74,
-	0x55, 0xd7, 0x20, 0xa4, 0x1b, 0x20, 0x3f, 0xff, 0xd6, 0x8d, 0x1c, 0xa6, 0x62, 0xbb, 0xa7, 0x8c,
-	0x21, 0x12, 0x90, 0xd7, 0xe2, 0xac, 0xea, 0xf3, 0x3f, 0xe1, 0x13, 0xe5, 0x38, 0x86, 0x5c, 0x95,
-	0xbe, 0x4e, 0xe2, 0x4a, 0x31, 0xff, 0xeb, 0x24, 0x51, 0x96, 0x87, 0x64, 0x1d, 0x02, 0xd8, 0x26,
-	0xec, 0x48, 0xf2, 0x3f, 0xbe, 0x17, 0x55, 0x19, 0x42, 0xae, 0xb9, 0x06, 0xb7, 0xb0, 0x3d, 0x87,
-	0x5f, 0x9b, 0x51, 0x95, 0x1b, 0x46, 0xcb, 0x95, 0x6c, 0x38, 0x16, 0xd9, 0x4d, 0xe4, 0x3f, 0xd3,
-	0x12, 0xbb, 0x90, 0x18, 0x90, 0x79, 0x06, 0x6d, 0x33, 0x1e, 0x84, 0xf9, 0xcf, 0x3a, 0x31, 0x29,
-	0x12, 0x5a, 0xf4, 0xac, 0x53, 0x12, 0x81, 0xd6, 0xcd, 0x27, 0xf8, 0x8d, 0x31, 0x9f, 0xce, 0x0d,
-	0x25, 0x70, 0x42, 0x32, 0xcf, 0x97, 0x07, 0x51, 0xa3, 0xe4, 0x55, 0x52, 0xa4, 0x02, 0xd4, 0x04,
-	0x92, 0xf2, 0xff, 0x74, 0x05, 0x24, 0xfe, 0x00, 0xd9, 0x58, 0x64, 0xb4, 0xa8, 0x64, 0x56, 0x14,
-	0x40, 0x7c, 0x36, 0x4a, 0x73, 0xa8, 0xcb, 0x5b, 0x00, 0x3e, 0x40, 0xc6, 0x45, 0xfe, 0x93, 0x97,
-	0x02, 0x98, 0xaf, 0xb2, 0xe9, 0x32, 0x08, 0x6a, 0xeb, 0x03, 0x00, 0xb7, 0x72, 0x2d, 0x3f, 0xff,
-	0x41, 0x1c, 0x21, 0x8b, 0x84, 0x92, 0x9c, 0x2b, 0x49, 0xe1, 0x27, 0xcd, 0x2c, 0xb2, 0x90, 0xf2,
-	0xa4, 0x61, 0xc1, 0x99, 0x93, 0x26, 0xfc, 0x6a, 0xb9, 0x49, 0x13, 0x63, 0x64, 0x4e, 0x9a, 0x30,
-	0xa2, 0xe4, 0xa4, 0x89, 0x43, 0x32, 0x27, 0x4d, 0x18, 0x52, 0x6a, 0xd2, 0x88, 0x88, 0xcc, 0x49,
-	0x83, 0x03, 0x14, 0x27, 0x0d, 0x17, 0x9d, 0x39, 0x69, 0xf0, 0x75, 0x50, 0x9f, 0x34, 0x51, 0x80,
-	0x5c, 0xef, 0x6d, 0xfa, 0x54, 0xa7, 0x6d, 0xf6, 0xfa, 0x96, 0x1e, 0xa0, 0x4e, 0xdb, 0x58, 0x43,
-	0x9d, 0xbe, 0x65, 0xda, 0xdd, 0xf6, 0xe8, 0x28, 0x78, 0xee, 0x1b, 0xc4, 0xf0, 0xe4, 0xb8, 0x96,
-	0x81, 0x93, 0xfb, 0xb9, 0x8f, 0xef, 0xee, 0xd2, 0xdd, 0xb4, 0x8a, 0xb9, 0x91, 0xc2, 0x8a, 0x3e,
-	0x3b, 0xce, 0xc7, 0xe4, 0xcf, 0x2f, 0x8d, 0x9e, 0x1d, 0xaf, 0x20, 0x7d, 0x80, 0xda, 0x86, 0xe3,
-	0xa2, 0x79, 0xc7, 0x0f, 0xf2, 0xbf, 0x53, 0x61, 0xc7, 0xea, 0xb5, 0x04, 0x0c, 0x31, 0x3f, 0x5b,
-	0x9c, 0xc6, 0x48, 0x9c, 0xdb, 0x2f, 0x00, 0x9c, 0x6c, 0x20, 0x41, 0x65, 0x16, 0x05, 0xba, 0x69,
-	0x6d, 0x54, 0xcb, 0x77, 0xf0, 0x3b, 0x2b, 0xf6, 0xe1, 0xa8, 0xd5, 0x2e, 0x94, 0x35, 0xcb, 0xf7,
-	0xdc, 0xaa, 0xbc, 0x7e, 0x0e, 0xe0, 0x44, 0xe4, 0xe7, 0x6d, 0x3a, 0x1d, 0xf2, 0xeb, 0x6e, 0x48,
-	0xc3, 0x77, 0xf1, 0x1b, 0x1c, 0xf6, 0xe1, 0x0c, 0xe5, 0xe6, 0x3e, 0x20, 0x96, 0xea, 0x98, 0xb1,
-	0xaa, 0xf6, 0x7d, 0x0f, 0xc0, 0x83, 0x69, 0x5a, 0xd3, 0x37, 0x86, 0x79, 0x68, 0xeb, 0x3d, 0xb4,
-	0x91, 0x57, 0xf0, 0x03, 0x7e, 0x6a, 0x97, 0xbc, 0x82, 0xd3, 0x3d, 0xbd, 0xbb, 0xa1, 0xed, 0x7f,
-	0x07, 0xe0, 0xbe, 0x48, 0xa6, 0x53, 0x29, 0x92, 0xef, 0x1b, 0xd7, 0xfc, 0xf4, 0xf1, 0x4b, 0x4f,
-	0x74, 0xcd, 0x60, 0xf8, 0x4d, 0xc3, 0xe9, 0xd5, 0x19, 0xf3, 0x51, 0xdd, 0xac, 0xeb, 0xae, 0x29,
-	0xfd, 0x0f, 0x6f, 0xab, 0xff, 0x1f, 0x1d, 0xf9, 0x3c, 0xf2, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0x44, 0x2c, 0x23, 0x26, 0x9d, 0x37, 0x00, 0x00,
+	// 2136 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x9b, 0xdb, 0x8b, 0x1c, 0xc7,
+	0x15, 0xc6, 0x55, 0x10, 0x82, 0x54, 0x92, 0x56, 0xd2, 0x48, 0xda, 0x5d, 0xad, 0x6e, 0x41, 0x90,
+	0x87, 0x3c, 0xa4, 0x27, 0xba, 0xe5, 0xb6, 0x09, 0xd1, 0xde, 0xb4, 0xf7, 0xd5, 0xec, 0x8c, 0x2e,
+	0x89, 0x2e, 0x11, 0xb5, 0x3d, 0xa5, 0xd9, 0x0e, 0x33, 0xd3, 0xad, 0xee, 0x9e, 0x51, 0x14, 0x42,
+	0x08, 0x21, 0x37, 0x42, 0x02, 0x09, 0x08, 0x25, 0x2f, 0x21, 0xc1, 0x06, 0x1b, 0xd9, 0xc6, 0xd8,
+	0xd8, 0xb2, 0xc1, 0x36, 0x12, 0x7e, 0x30, 0x36, 0xb2, 0x1f, 0x0c, 0x7e, 0x32, 0x18, 0xfc, 0xaf,
+	0x98, 0x99, 0xae, 0x5b, 0x57, 0x77, 0x57, 0x77, 0x57, 0xf7, 0xc2, 0xfa, 0x49, 0x68, 0x67, 0xce,
+	0xef, 0xfb, 0xaa, 0xbb, 0xea, 0x9c, 0x33, 0xd5, 0xd5, 0xf0, 0x3b, 0xa8, 0x8d, 0x3a, 0xb8, 0x89,
+	0x6e, 0x23, 0xc7, 0xaa, 0xf6, 0x4f, 0xa3, 0xb6, 0xb3, 0x89, 0x4e, 0x57, 0x9b, 0xc8, 0x47, 0x9b,
+	0xbd, 0x8d, 0xaa, 0x87, 0xdd, 0x3e, 0x76, 0x0d, 0xc7, 0xb5, 0x7d, 0xbb, 0xf2, 0x6d, 0xd3, 0xee,
+	0xfa, 0xc8, 0xea, 0x62, 0xd7, 0x43, 0x96, 0x41, 0xe2, 0x0c, 0x1a, 0x63, 0x90, 0x98, 0x89, 0x1f,
+	0x2a, 0x89, 0xc8, 0x71, 0xda, 0x96, 0x89, 0x7c, 0xcb, 0xee, 0x7a, 0x43, 0xbc, 0x65, 0x62, 0x2f,
+	0x10, 0x98, 0xf8, 0x9e, 0x32, 0x72, 0xf0, 0xaf, 0x1c, 0x71, 0x46, 0x19, 0x81, 0xfb, 0xb8, 0xeb,
+	0x47, 0x54, 0xaa, 0xca, 0x98, 0x96, 0xd3, 0x93, 0x03, 0xce, 0x29, 0x03, 0xda, 0x96, 0x89, 0xbb,
+	0x1e, 0x8e, 0xc8, 0x9c, 0x55, 0x46, 0x75, 0xb0, 0xef, 0x5a, 0x66, 0x24, 0xe8, 0xbc, 0x32, 0xc8,
+	0x69, 0xa3, 0x6e, 0xd7, 0xea, 0xb6, 0x22, 0x61, 0x3f, 0x50, 0x87, 0xb9, 0xb8, 0x69, 0x99, 0xb1,
+	0x57, 0x5c, 0x6d, 0xd2, 0x45, 0xf7, 0xe2, 0x2e, 0xfa, 0xa4, 0x3a, 0x08, 0x9b, 0x76, 0xa7, 0x83,
+	0xbb, 0xcd, 0xf8, 0x7b, 0x7c, 0x3e, 0x25, 0xd8, 0xb3, 0x7b, 0xae, 0x99, 0xf7, 0x6a, 0x7a, 0xe6,
+	0x26, 0xee, 0x20, 0x2f, 0xdf, 0xec, 0xf0, 0x4c, 0xdb, 0x8d, 0x0a, 0x7d, 0x5f, 0x19, 0x73, 0x0f,
+	0xa3, 0x3e, 0xf6, 0x4c, 0xdb, 0xc1, 0x72, 0xdc, 0xd1, 0x96, 0x6d, 0xb7, 0xda, 0xb8, 0x3a, 0xfc,
+	0xdf, 0x46, 0xef, 0x4e, 0x15, 0x77, 0x1c, 0xff, 0x3e, 0xf9, 0x70, 0x8c, 0x7c, 0xe8, 0x3a, 0x66,
+	0xd5, 0xf3, 0x91, 0xdf, 0x23, 0x51, 0x67, 0x3e, 0xf9, 0x0d, 0x1c, 0x99, 0x0d, 0xd8, 0x8d, 0x80,
+	0x57, 0xb9, 0x0b, 0xe1, 0x8c, 0x8b, 0x91, 0x8f, 0xa7, 0x1c, 0xc7, 0xab, 0xac, 0x1a, 0x99, 0x16,
+	0x9d, 0x21, 0x2e, 0x2b, 0x83, 0xc5, 0xb3, 0x3f, 0xd5, 0xf1, 0xdd, 0x1e, 0xf6, 0xfc, 0x89, 0x8a,
+	0x11, 0x38, 0x31, 0x5c, 0xc7, 0x34, 0x1a, 0x43, 0x27, 0xa7, 0x76, 0x54, 0x5e, 0x04, 0x70, 0xe7,
+	0x8a, 0xe5, 0xf9, 0x43, 0xc5, 0x65, 0x1d, 0x45, 0x12, 0x1d, 0xd1, 0x5b, 0x29, 0x07, 0xe6, 0x39,
+	0x76, 0xd7, 0xc3, 0xa7, 0x76, 0x0c, 0x2e, 0xce, 0x2c, 0x6e, 0xe3, 0x22, 0x17, 0x87, 0xc5, 0x67,
+	0xbc, 0x38, 0x7f, 0x01, 0x70, 0x67, 0x1d, 0xa3, 0xe6, 0xe0, 0x36, 0x55, 0x26, 0x33, 0x2a, 0x0e,
+	0xfe, 0x35, 0x68, 0x14, 0xe5, 0xff, 0x44, 0x2f, 0x98, 0x0d, 0xfe, 0x36, 0xdc, 0x75, 0xcd, 0xb5,
+	0x7c, 0x3c, 0x74, 0x92, 0x0b, 0xc6, 0xc2, 0xd4, 0x43, 0x45, 0xf4, 0xea, 0x0e, 0x15, 0x7e, 0x9a,
+	0x47, 0x81, 0xc7, 0xa9, 0x25, 0x5a, 0x70, 0x4f, 0x30, 0x3b, 0xe7, 0x86, 0xb9, 0xb9, 0x32, 0x95,
+	0x51, 0x24, 0x48, 0xe5, 0x86, 0x18, 0xab, 0x16, 0xfa, 0x17, 0x80, 0x70, 0x30, 0x91, 0x88, 0xce,
+	0xcf, 0xf2, 0xe9, 0xf0, 0x48, 0xaa, 0x72, 0x41, 0x1f, 0xc0, 0x6e, 0xa0, 0x0f, 0x0f, 0x05, 0x03,
+	0x98, 0x77, 0x7a, 0x35, 0x9e, 0x94, 0x2b, 0x17, 0x33, 0xb2, 0x5b, 0x4e, 0xcf, 0x88, 0x03, 0xa8,
+	0xaf, 0xc4, 0x9f, 0xc8, 0xea, 0x9e, 0x77, 0x7a, 0x5e, 0xe5, 0xc7, 0x39, 0xa4, 0x68, 0x10, 0xc5,
+	0x4f, 0x6a, 0xc5, 0xb2, 0xd1, 0xff, 0x1b, 0xc0, 0x11, 0xf2, 0xe7, 0xd5, 0xa0, 0xfa, 0x55, 0x2e,
+	0xe4, 0x27, 0x92, 0x50, 0xea, 0x69, 0xaa, 0x00, 0x81, 0x39, 0x7b, 0x1e, 0xc0, 0x0a, 0xf9, 0x50,
+	0xbc, 0x2d, 0xb3, 0xf9, 0xd9, 0x31, 0x37, 0x65, 0xae, 0x20, 0x85, 0xb9, 0xfc, 0x15, 0x84, 0xf3,
+	0xd8, 0x5f, 0x09, 0xda, 0x8d, 0xca, 0x28, 0xbd, 0xd7, 0xb4, 0xe0, 0x18, 0x73, 0x83, 0x82, 0x33,
+	0x31, 0x9d, 0x51, 0x8e, 0xb6, 0x2d, 0x06, 0x67, 0x86, 0xb4, 0xf6, 0x06, 0x13, 0x8d, 0xde, 0xa9,
+	0x99, 0x8c, 0x58, 0xd2, 0xd7, 0x18, 0xa1, 0x68, 0xf5, 0xfc, 0x74, 0xe0, 0xfe, 0xe0, 0xdb, 0x35,
+	0xbb, 0x49, 0xe5, 0x2e, 0x6a, 0xc9, 0x71, 0x80, 0x5a, 0xf1, 0x77, 0x70, 0x2c, 0x08, 0x98, 0xb1,
+	0xbb, 0xbe, 0x6b, 0xb7, 0xdb, 0xd8, 0xa5, 0xc2, 0xab, 0x5a, 0xc2, 0x11, 0x8e, 0x5a, 0xff, 0xf7,
+	0x00, 0x8e, 0x47, 0x6a, 0x34, 0x75, 0xb0, 0xa6, 0xe5, 0x20, 0x0a, 0x52, 0x5b, 0xf8, 0x2d, 0x1c,
+	0x0d, 0x02, 0xd7, 0x50, 0x07, 0x7b, 0x0e, 0x32, 0xd9, 0x9d, 0x5e, 0xd1, 0xd2, 0x97, 0x31, 0x6a,
+	0x75, 0x17, 0x1e, 0x20, 0x61, 0x76, 0x93, 0x09, 0xcf, 0xeb, 0x09, 0x73, 0x82, 0x5a, 0xf3, 0xd7,
+	0x34, 0xf9, 0xce, 0xb4, 0x7b, 0x9e, 0xcf, 0xef, 0xf8, 0x92, 0xde, 0x1d, 0x0f, 0x41, 0xd4, 0xca,
+	0x0f, 0x01, 0xdc, 0x3d, 0x58, 0xd9, 0x54, 0x71, 0x2a, 0xa7, 0xa2, 0x10, 0x4b, 0x85, 0xa6, 0x8b,
+	0x20, 0xd8, 0x2a, 0xff, 0x1f, 0xc9, 0xc8, 0xc2, 0xc2, 0x9b, 0xd5, 0x00, 0x47, 0x97, 0xdd, 0x5c,
+	0x41, 0x0a, 0x73, 0xf8, 0x26, 0x80, 0x87, 0x07, 0x1f, 0x46, 0x17, 0xea, 0xb2, 0x86, 0x44, 0xe2,
+	0x32, 0x5d, 0x29, 0x07, 0xc6, 0x6c, 0xbf, 0x0d, 0xe0, 0xa8, 0xd4, 0xc5, 0xea, 0x2e, 0xaf, 0x78,
+	0x0c, 0x35, 0xbe, 0x5a, 0x12, 0x8d, 0x39, 0x7f, 0x1d, 0xc0, 0x43, 0x83, 0x2f, 0x45, 0xd2, 0xc2,
+	0x92, 0x86, 0x52, 0x52, 0x52, 0x58, 0x2e, 0x85, 0xc5, 0x3c, 0x3f, 0x07, 0xe0, 0xbe, 0xe1, 0x57,
+	0x84, 0x64, 0xa2, 0x33, 0x03, 0x63, 0x52, 0xc9, 0xc5, 0xa2, 0x18, 0x66, 0xf2, 0x65, 0xd2, 0x63,
+	0x48, 0xd9, 0x67, 0x41, 0x67, 0xe6, 0xc5, 0xe6, 0x9e, 0xc5, 0x12, 0x48, 0xcc, 0xed, 0x39, 0xf8,
+	0x8d, 0x9a, 0xd5, 0x6d, 0x25, 0x76, 0x19, 0x49, 0x95, 0x7c, 0x1f, 0x29, 0xc4, 0x74, 0xa3, 0x22,
+	0x73, 0x52, 0x67, 0x5b, 0x1b, 0x86, 0x44, 0x50, 0xa7, 0xd6, 0x3e, 0xac, 0xb0, 0xd2, 0xcf, 0x45,
+	0x97, 0x74, 0x45, 0x05, 0x88, 0x5a, 0xf7, 0x8f, 0x00, 0x1e, 0x91, 0x4b, 0x3f, 0xd7, 0x5f, 0xd7,
+	0xd4, 0x8f, 0x61, 0xa9, 0x6d, 0xfc, 0x19, 0xc0, 0x89, 0x48, 0xfd, 0xe7, 0x3e, 0xea, 0x9a, 0x3e,
+	0xe2, 0x60, 0x6a, 0x23, 0x7f, 0x60, 0x1d, 0x0d, 0x5b, 0xa7, 0xdc, 0x46, 0x4d, 0xd3, 0x46, 0x14,
+	0x95, 0x56, 0xe1, 0x0f, 0xf2, 0x9e, 0x80, 0xcb, 0x2f, 0xeb, 0xca, 0x8b, 0x94, 0xb4, 0x86, 0x72,
+	0x34, 0xd4, 0x16, 0x70, 0xf1, 0x35, 0xdd, 0xa9, 0x20, 0x81, 0xd4, 0xfa, 0xff, 0x07, 0x70, 0xef,
+	0xb0, 0x86, 0x32, 0xdd, 0xb9, 0xdc, 0xba, 0xa1, 0xf8, 0xbc, 0xf9, 0x2f, 0x11, 0xc3, 0x32, 0xca,
+	0x23, 0x00, 0xf7, 0x93, 0x32, 0xcf, 0x5d, 0x2e, 0xe8, 0xe1, 0x63, 0x96, 0xe9, 0x62, 0x09, 0x24,
+	0xe6, 0xf5, 0x09, 0x80, 0x63, 0xe1, 0x12, 0xcf, 0x2d, 0x5f, 0xd2, 0x12, 0x52, 0xac, 0xec, 0x5a,
+	0x79, 0x40, 0x36, 0x80, 0xf7, 0x01, 0x1c, 0x97, 0x4a, 0x7d, 0x91, 0xe5, 0x98, 0x84, 0xa2, 0x43,
+	0x58, 0x2f, 0x91, 0xc8, 0xc6, 0xf0, 0x2e, 0xe9, 0xa1, 0x62, 0x12, 0xca, 0x9a, 0x96, 0x5e, 0x72,
+	0x3a, 0xb9, 0x54, 0x1a, 0x8f, 0xb9, 0x7f, 0x05, 0xc0, 0x03, 0xb4, 0x19, 0xe0, 0xc6, 0xf5, 0x66,
+	0x69, 0x6c, 0x22, 0x5a, 0x2a, 0x03, 0xc5, 0xec, 0x3e, 0x26, 0x6d, 0x5f, 0x24, 0x7f, 0xad, 0xe8,
+	0xcd, 0xce, 0x84, 0xec, 0xb5, 0x5a, 0x12, 0x8d, 0xf9, 0xee, 0xd3, 0x1f, 0x92, 0xe2, 0xbe, 0x4d,
+	0xe6, 0x84, 0xcf, 0x63, 0x8c, 0x08, 0x25, 0xed, 0xe7, 0xf3, 0x21, 0xde, 0x32, 0x08, 0xd2, 0x6b,
+	0xfa, 0xd2, 0x21, 0x90, 0x5a, 0xfd, 0x6f, 0x00, 0x1e, 0x8d, 0x74, 0x0c, 0x82, 0x8b, 0x2b, 0xda,
+	0x2e, 0x62, 0x79, 0x6a, 0x33, 0x7f, 0x07, 0xf0, 0x58, 0xb4, 0x6d, 0x10, 0xdc, 0x5c, 0xd5, 0x76,
+	0x13, 0x0f, 0x54, 0xdb, 0xf9, 0x2b, 0x6b, 0x89, 0xf8, 0xfa, 0x14, 0xcc, 0x5c, 0xd6, 0x36, 0x13,
+	0x87, 0x4b, 0xeb, 0x0a, 0x0e, 0x0b, 0x9d, 0x84, 0x60, 0xe2, 0x92, 0xbe, 0x89, 0x30, 0x29, 0xb5,
+	0x49, 0x1d, 0x0f, 0x77, 0x13, 0x82, 0x87, 0xba, 0xfe, 0x1c, 0x89, 0xc0, 0xd4, 0x36, 0x5e, 0x22,
+	0x3f, 0xcf, 0x44, 0xf5, 0x45, 0x0d, 0x75, 0x89, 0x91, 0x3b, 0x11, 0xaa, 0x50, 0x2c, 0xa1, 0xbc,
+	0x41, 0x7e, 0xa6, 0x49, 0xeb, 0x7a, 0x45, 0x57, 0x24, 0x76, 0x55, 0xaf, 0x96, 0x44, 0x63, 0xae,
+	0x3f, 0x02, 0xf0, 0x88, 0xd4, 0x15, 0x08, 0xe6, 0x1b, 0x9a, 0x72, 0xca, 0x64, 0x70, 0xb9, 0x5c,
+	0x28, 0x1b, 0xca, 0xc7, 0x00, 0x4e, 0xc8, 0xdd, 0x41, 0xc1, 0xf5, 0x9b, 0x8c, 0xa3, 0x83, 0xb9,
+	0x52, 0x32, 0x95, 0x8d, 0xe6, 0x03, 0xd2, 0x88, 0xc5, 0xe6, 0xa2, 0xba, 0xa6, 0xaa, 0x2a, 0x13,
+	0x35, 0x4a, 0x65, 0xb2, 0x71, 0xbc, 0x05, 0xe0, 0x41, 0xd6, 0x3f, 0x08, 0x43, 0xd0, 0x9d, 0xc9,
+	0x09, 0x79, 0x6c, 0xad, 0x2c, 0x1c, 0x33, 0xfe, 0x94, 0x74, 0x91, 0x31, 0x19, 0xb0, 0xa6, 0x3b,
+	0x83, 0x13, 0xf3, 0xdf, 0x7a, 0x89, 0x44, 0x36, 0x82, 0x87, 0x00, 0xee, 0xae, 0x63, 0xd4, 0xac,
+	0x07, 0x87, 0x31, 0x32, 0xef, 0x1e, 0x93, 0xc3, 0x1b, 0x86, 0x10, 0x9b, 0x77, 0xf7, 0x38, 0x16,
+	0xc1, 0x8c, 0x6d, 0xc2, 0x3d, 0xc3, 0xe7, 0xca, 0xd4, 0x58, 0x5e, 0xaa, 0x18, 0x9c, 0xba, 0xbb,
+	0x40, 0x2a, 0x69, 0x3d, 0x7c, 0xb8, 0x24, 0x73, 0x6a, 0x93, 0x0e, 0xa5, 0x18, 0xb1, 0xb4, 0xd4,
+	0xc6, 0x62, 0x9c, 0xb5, 0x6a, 0xb2, 0x8f, 0xab, 0x85, 0x7c, 0x44, 0x81, 0xa9, 0x0f, 0x14, 0x4e,
+	0xca, 0xfd, 0x9a, 0xec, 0xe8, 0x56, 0x21, 0x47, 0x89, 0x5c, 0xb5, 0xb1, 0xff, 0x00, 0xf8, 0xad,
+	0x48, 0xeb, 0x26, 0x3b, 0xfb, 0x65, 0x21, 0x67, 0xc9, 0x60, 0xb5, 0xb5, 0x07, 0x00, 0x9e, 0x90,
+	0x1a, 0x39, 0xd9, 0xd8, 0xcd, 0x42, 0xc6, 0x92, 0xb0, 0xa9, 0xad, 0xfc, 0x11, 0xde, 0xda, 0xc9,
+	0x8e, 0xae, 0x15, 0x73, 0x14, 0x25, 0xaa, 0xcd, 0xfc, 0x93, 0xb5, 0xf2, 0x24, 0x23, 0xc9, 0x7e,
+	0xae, 0x17, 0x9b, 0x54, 0xb1, 0x50, 0xb5, 0xa5, 0x27, 0xa4, 0xf0, 0xc8, 0x4e, 0xd6, 0x35, 0x9d,
+	0xc4, 0xb0, 0xa8, 0x81, 0x7a, 0x99, 0x48, 0x96, 0x25, 0x3f, 0x24, 0x05, 0x28, 0x26, 0x69, 0x5c,
+	0x2e, 0x20, 0x98, 0x9c, 0x32, 0xae, 0x94, 0x4c, 0x65, 0x23, 0xf9, 0x14, 0xc0, 0x93, 0xc3, 0xa6,
+	0xa7, 0x8f, 0xac, 0x36, 0xda, 0x68, 0xe3, 0xaf, 0xff, 0x90, 0xbe, 0x00, 0xf0, 0x78, 0xb8, 0x29,
+	0x95, 0x07, 0x74, 0xa3, 0x80, 0x74, 0x6a, 0x12, 0xbd, 0xb9, 0x35, 0x70, 0x36, 0xbc, 0x2f, 0x01,
+	0x3c, 0x21, 0xb5, 0xa9, 0x65, 0xe5, 0x3c, 0x35, 0x96, 0x0e, 0xf0, 0xd6, 0x16, 0xd1, 0xd9, 0x08,
+	0x3f, 0x07, 0xf0, 0x58, 0xa8, 0x7d, 0x2d, 0x2b, 0x63, 0xa9, 0xa0, 0x74, 0x74, 0x37, 0xb6, 0x84,
+	0xcd, 0xc6, 0xf6, 0x8c, 0xec, 0x42, 0xc7, 0x15, 0x86, 0x22, 0x2b, 0x42, 0x51, 0x16, 0xae, 0x96,
+	0x8d, 0x65, 0x83, 0xf9, 0x8c, 0xfc, 0xac, 0x4b, 0x28, 0x2c, 0x3f, 0x2f, 0xb2, 0x12, 0x94, 0x65,
+	0xe5, 0x17, 0x5b, 0x40, 0x66, 0xa3, 0xba, 0x43, 0xcf, 0xea, 0xd6, 0xec, 0xa6, 0x97, 0xbd, 0x01,
+	0xa6, 0x87, 0x9c, 0x79, 0xfb, 0x97, 0x52, 0x05, 0x7d, 0xba, 0xcd, 0xc9, 0x57, 0x7d, 0xf6, 0x3d,
+	0x14, 0x59, 0x4e, 0x60, 0x64, 0x7c, 0xb8, 0x2a, 0x1e, 0x96, 0xcd, 0xfc, 0x70, 0x55, 0x96, 0xcd,
+	0x7e, 0xe2, 0xd6, 0xa5, 0x07, 0xc2, 0xd8, 0x22, 0xc9, 0xfe, 0xa4, 0x48, 0x56, 0xe5, 0x08, 0xb5,
+	0xe6, 0x26, 0xdc, 0xcd, 0x9b, 0xa6, 0xec, 0xc7, 0xdd, 0x22, 0x72, 0x83, 0x68, 0xb5, 0x52, 0x17,
+	0x8e, 0x84, 0xda, 0xa1, 0xec, 0x87, 0xdd, 0x22, 0x37, 0x92, 0x00, 0x52, 0x0f, 0xc2, 0xee, 0x24,
+	0x85, 0x30, 0xfb, 0x81, 0x4b, 0x2e, 0x45, 0x43, 0xf3, 0x1e, 0xb8, 0x8c, 0x23, 0xb0, 0x75, 0xf3,
+	0x02, 0xd9, 0x12, 0x14, 0xa7, 0xf3, 0xbc, 0x16, 0x38, 0x66, 0x32, 0x2f, 0x14, 0x07, 0x45, 0x9e,
+	0x5a, 0x86, 0x56, 0x80, 0x9e, 0x40, 0xdc, 0xfc, 0x5f, 0x2c, 0x81, 0x24, 0x9e, 0x62, 0x1d, 0x09,
+	0x95, 0x16, 0x9d, 0x99, 0x15, 0x06, 0x50, 0x9f, 0xf3, 0x85, 0x39, 0xcc, 0xe5, 0x03, 0x00, 0x77,
+	0xd1, 0x72, 0x91, 0xfd, 0x28, 0x9c, 0x04, 0x16, 0x57, 0xd9, 0x74, 0x11, 0x04, 0xb3, 0xf5, 0x5f,
+	0x00, 0xf7, 0x08, 0x29, 0x3f, 0xfb, 0x41, 0x38, 0x69, 0x16, 0x49, 0x4b, 0x72, 0xae, 0x20, 0x45,
+	0xac, 0x34, 0xc1, 0x11, 0x7b, 0xcd, 0x4a, 0xc3, 0x83, 0x53, 0x2b, 0x4d, 0xf0, 0xd5, 0x62, 0x95,
+	0x26, 0xc2, 0x48, 0xad, 0x34, 0xd1, 0xd7, 0x32, 0x34, 0x2a, 0x4d, 0xde, 0x77, 0x3b, 0x5c, 0xb8,
+	0x3f, 0x08, 0x29, 0x54, 0x69, 0x64, 0x44, 0x6a, 0xa5, 0x21, 0x01, 0x9a, 0x95, 0x46, 0x88, 0x4e,
+	0xad, 0x34, 0xe4, 0x3e, 0xe8, 0x57, 0x9a, 0x30, 0x40, 0xad, 0xc7, 0x0e, 0x8d, 0x37, 0x82, 0xd7,
+	0xb1, 0x32, 0x8f, 0x8d, 0xbc, 0xbe, 0x65, 0x84, 0xa2, 0xb3, 0x9d, 0xa9, 0xa5, 0x52, 0x53, 0x39,
+	0xa5, 0x84, 0xd8, 0xbc, 0x89, 0x24, 0x16, 0x21, 0x9e, 0x9c, 0x0f, 0xae, 0x99, 0xee, 0x45, 0x08,
+	0x45, 0xab, 0x2f, 0xc2, 0x3f, 0xd8, 0x3e, 0x60, 0xc3, 0xea, 0xf4, 0xda, 0xc8, 0xc7, 0xcd, 0x41,
+	0x5c, 0xb3, 0xd7, 0xb6, 0xba, 0xad, 0xc6, 0xf0, 0xf5, 0xb6, 0xcc, 0xbf, 0xc8, 0x83, 0xb7, 0xe1,
+	0x8c, 0x14, 0x9c, 0xda, 0xcf, 0x33, 0xf2, 0x73, 0x3a, 0xd9, 0x4d, 0x3d, 0x9f, 0x1b, 0x25, 0x2c,
+	0xef, 0x23, 0x8f, 0x6c, 0x4c, 0xf1, 0xc0, 0xe6, 0x70, 0xe7, 0xe9, 0x1a, 0x46, 0x7d, 0xdc, 0x30,
+	0x6d, 0x07, 0x2f, 0xd8, 0x9e, 0x9f, 0xfd, 0x51, 0x20, 0x7f, 0x55, 0xd0, 0x88, 0xc1, 0x50, 0xf3,
+	0xb3, 0xf9, 0x69, 0x9c, 0x24, 0xb8, 0x7d, 0x0d, 0xc0, 0xf1, 0x79, 0x2c, 0xa9, 0xcc, 0x62, 0x1f,
+	0x59, 0xed, 0xed, 0x6a, 0xf9, 0x11, 0x79, 0xd4, 0xca, 0x3f, 0x1c, 0xd6, 0xb6, 0xe5, 0xa2, 0x66,
+	0xc5, 0x22, 0x57, 0x96, 0xd7, 0x57, 0x01, 0x1c, 0x0b, 0x5d, 0xde, 0x9a, 0xdd, 0xa4, 0x57, 0x77,
+	0x5b, 0x1a, 0x7e, 0x4c, 0x1e, 0x3c, 0xf2, 0x0f, 0x67, 0x18, 0x37, 0xf3, 0xe6, 0x69, 0xa2, 0x63,
+	0xce, 0x2a, 0xdb, 0xf7, 0x53, 0x00, 0x4f, 0x25, 0x69, 0x4d, 0xdf, 0x1f, 0xcc, 0xc3, 0x2e, 0xea,
+	0xe0, 0xed, 0x3c, 0x82, 0xf7, 0xc8, 0x36, 0x69, 0xfc, 0x08, 0x16, 0x3b, 0xa8, 0xb5, 0xad, 0xed,
+	0xbf, 0x03, 0xe0, 0xf1, 0xd0, 0x4c, 0x67, 0x52, 0x74, 0xbe, 0x6f, 0x5f, 0xf3, 0xd3, 0x93, 0xd7,
+	0x7f, 0xd4, 0xb2, 0xfc, 0xc1, 0x37, 0x4d, 0xbb, 0x53, 0xe5, 0xcc, 0xef, 0x22, 0xab, 0x8a, 0x1c,
+	0x4b, 0xf9, 0xe6, 0xff, 0xc6, 0x37, 0x87, 0x67, 0xdc, 0xcf, 0x7e, 0x15, 0x00, 0x00, 0xff, 0xff,
+	0xd3, 0xc7, 0x10, 0x75, 0x12, 0x41, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -173,6 +194,14 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DatahubServiceClient interface {
+	// Applications --------------------------------------------------
+	CreateApps(ctx context.Context, in *applications.CreateApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListApps(ctx context.Context, in *applications.ListApplicationsRequest, opts ...grpc.CallOption) (*applications.ListApplicationsResponse, error)
+	DeleteApps(ctx context.Context, in *applications.DeleteApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Data --------------------------------------------------
+	ReadData(ctx context.Context, in *data.ReadDataRequest, opts ...grpc.CallOption) (*data.ReadDataResponse, error)
+	WriteData(ctx context.Context, in *data.WriteDataRequest, opts ...grpc.CallOption) (*status.Status, error)
+	DeleteData(ctx context.Context, in *data.DeleteDataRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Events --------------------------------------------------
 	CreateEvents(ctx context.Context, in *events.CreateEventsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	ListEvents(ctx context.Context, in *events.ListEventsRequest, opts ...grpc.CallOption) (*events.ListEventsResponse, error)
@@ -184,12 +213,14 @@ type DatahubServiceClient interface {
 	// Licenses --------------------------------------------------
 	GetLicense(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*licenses.GetLicenseResponse, error)
 	// Metrics --------------------------------------------------
+	CreateMetrics(ctx context.Context, in *metrics.CreateMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreatePodMetrics(ctx context.Context, in *metrics.CreatePodMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateControllerMetrics(ctx context.Context, in *metrics.CreateControllerMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateApplicationMetrics(ctx context.Context, in *metrics.CreateApplicationMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNamespaceMetrics(ctx context.Context, in *metrics.CreateNamespaceMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNodeMetrics(ctx context.Context, in *metrics.CreateNodeMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateClusterMetrics(ctx context.Context, in *metrics.CreateClusterMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListMetrics(ctx context.Context, in *metrics.ListMetricsRequest, opts ...grpc.CallOption) (*metrics.ListMetricsResponse, error)
 	ListPodMetrics(ctx context.Context, in *metrics.ListPodMetricsRequest, opts ...grpc.CallOption) (*metrics.ListPodMetricsResponse, error)
 	ListControllerMetrics(ctx context.Context, in *metrics.ListControllerMetricsRequest, opts ...grpc.CallOption) (*metrics.ListControllerMetricsResponse, error)
 	ListApplicationMetrics(ctx context.Context, in *metrics.ListApplicationMetricsRequest, opts ...grpc.CallOption) (*metrics.ListApplicationMetricsResponse, error)
@@ -199,12 +230,14 @@ type DatahubServiceClient interface {
 	// Ping --------------------------------------------------
 	Ping(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*status.Status, error)
 	// Plannings --------------------------------------------------
+	CreatePlannings(ctx context.Context, in *plannings.CreatePlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreatePodPlannings(ctx context.Context, in *plannings.CreatePodPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateControllerPlannings(ctx context.Context, in *plannings.CreateControllerPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateApplicationPlannings(ctx context.Context, in *plannings.CreateApplicationPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNamespacePlannings(ctx context.Context, in *plannings.CreateNamespacePlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNodePlannings(ctx context.Context, in *plannings.CreateNodePlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateClusterPlannings(ctx context.Context, in *plannings.CreateClusterPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListPlannings(ctx context.Context, in *plannings.ListPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListPlanningsResponse, error)
 	ListPodPlannings(ctx context.Context, in *plannings.ListPodPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListPodPlanningsResponse, error)
 	ListControllerPlannings(ctx context.Context, in *plannings.ListControllerPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListControllerPlanningsResponse, error)
 	ListApplicationPlannings(ctx context.Context, in *plannings.ListApplicationPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListApplicationPlanningsResponse, error)
@@ -212,12 +245,14 @@ type DatahubServiceClient interface {
 	ListNodePlannings(ctx context.Context, in *plannings.ListNodePlanningsRequest, opts ...grpc.CallOption) (*plannings.ListNodePlanningsResponse, error)
 	ListClusterPlannings(ctx context.Context, in *plannings.ListClusterPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListClusterPlanningsResponse, error)
 	// Predictions --------------------------------------------------
+	CreatePredictions(ctx context.Context, in *predictions.CreatePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreatePodPredictions(ctx context.Context, in *predictions.CreatePodPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateControllerPredictions(ctx context.Context, in *predictions.CreateControllerPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateApplicationPredictions(ctx context.Context, in *predictions.CreateApplicationPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNamespacePredictions(ctx context.Context, in *predictions.CreateNamespacePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNodePredictions(ctx context.Context, in *predictions.CreateNodePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateClusterPredictions(ctx context.Context, in *predictions.CreateClusterPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListPredictions(ctx context.Context, in *predictions.ListPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListPredictionsResponse, error)
 	ListPodPredictions(ctx context.Context, in *predictions.ListPodPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListPodPredictionsResponse, error)
 	ListControllerPredictions(ctx context.Context, in *predictions.ListControllerPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListControllerPredictionsResponse, error)
 	ListApplicationPredictions(ctx context.Context, in *predictions.ListApplicationPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListApplicationPredictionsResponse, error)
@@ -228,12 +263,14 @@ type DatahubServiceClient interface {
 	ReadRawdata(ctx context.Context, in *rawdata.ReadRawdataRequest, opts ...grpc.CallOption) (*rawdata.ReadRawdataResponse, error)
 	WriteRawdata(ctx context.Context, in *rawdata.WriteRawdataRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Recommendations --------------------------------------------------
+	CreateRecommendations(ctx context.Context, in *recommendations.CreateRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreatePodRecommendations(ctx context.Context, in *recommendations.CreatePodRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateControllerRecommendations(ctx context.Context, in *recommendations.CreateControllerRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateApplicationRecommendations(ctx context.Context, in *recommendations.CreateApplicationRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNamespaceRecommendations(ctx context.Context, in *recommendations.CreateNamespaceRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateNodeRecommendations(ctx context.Context, in *recommendations.CreateNodeRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateClusterRecommendations(ctx context.Context, in *recommendations.CreateClusterRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListRecommendations(ctx context.Context, in *recommendations.ListRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListRecommendationsResponse, error)
 	ListPodRecommendations(ctx context.Context, in *recommendations.ListPodRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListPodRecommendationsResponse, error)
 	ListAvailablePodRecommendations(ctx context.Context, in *recommendations.ListPodRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListPodRecommendationsResponse, error)
 	ListControllerRecommendations(ctx context.Context, in *recommendations.ListControllerRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListControllerRecommendationsResponse, error)
@@ -269,6 +306,10 @@ type DatahubServiceClient interface {
 	// Used to stop generating predictions for the nodes
 	DeleteNodes(ctx context.Context, in *resources.DeleteNodesRequest, opts ...grpc.CallOption) (*status.Status, error)
 	DeleteClusters(ctx context.Context, in *resources.DeleteClustersRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Schemas --------------------------------------------------
+	CreateSchemas(ctx context.Context, in *schemas.CreateSchemasRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListSchemas(ctx context.Context, in *schemas.ListSchemasRequest, opts ...grpc.CallOption) (*schemas.ListSchemasResponse, error)
+	DeleteSchemas(ctx context.Context, in *schemas.DeleteSchemasRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Scores --------------------------------------------------
 	CreateSimulatedSchedulingScores(ctx context.Context, in *scores.CreateSimulatedSchedulingScoresRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Used to list system scores
@@ -290,6 +331,60 @@ type datahubServiceClient struct {
 
 func NewDatahubServiceClient(cc *grpc.ClientConn) DatahubServiceClient {
 	return &datahubServiceClient{cc}
+}
+
+func (c *datahubServiceClient) CreateApps(ctx context.Context, in *applications.CreateApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateApps", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListApps(ctx context.Context, in *applications.ListApplicationsRequest, opts ...grpc.CallOption) (*applications.ListApplicationsResponse, error) {
+	out := new(applications.ListApplicationsResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ListApps", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) DeleteApps(ctx context.Context, in *applications.DeleteApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteApps", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ReadData(ctx context.Context, in *data.ReadDataRequest, opts ...grpc.CallOption) (*data.ReadDataResponse, error) {
+	out := new(data.ReadDataResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ReadData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) WriteData(ctx context.Context, in *data.WriteDataRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/WriteData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) DeleteData(ctx context.Context, in *data.DeleteDataRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *datahubServiceClient) CreateEvents(ctx context.Context, in *events.CreateEventsRequest, opts ...grpc.CallOption) (*status.Status, error) {
@@ -355,6 +450,15 @@ func (c *datahubServiceClient) GetLicense(ctx context.Context, in *empty.Empty, 
 	return out, nil
 }
 
+func (c *datahubServiceClient) CreateMetrics(ctx context.Context, in *metrics.CreateMetricsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateMetrics", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datahubServiceClient) CreatePodMetrics(ctx context.Context, in *metrics.CreatePodMetricsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePodMetrics", in, out, opts...)
@@ -403,6 +507,15 @@ func (c *datahubServiceClient) CreateNodeMetrics(ctx context.Context, in *metric
 func (c *datahubServiceClient) CreateClusterMetrics(ctx context.Context, in *metrics.CreateClusterMetricsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateClusterMetrics", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListMetrics(ctx context.Context, in *metrics.ListMetricsRequest, opts ...grpc.CallOption) (*metrics.ListMetricsResponse, error) {
+	out := new(metrics.ListMetricsResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ListMetrics", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -472,6 +585,15 @@ func (c *datahubServiceClient) Ping(ctx context.Context, in *empty.Empty, opts .
 	return out, nil
 }
 
+func (c *datahubServiceClient) CreatePlannings(ctx context.Context, in *plannings.CreatePlanningsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePlannings", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datahubServiceClient) CreatePodPlannings(ctx context.Context, in *plannings.CreatePodPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePodPlannings", in, out, opts...)
@@ -520,6 +642,15 @@ func (c *datahubServiceClient) CreateNodePlannings(ctx context.Context, in *plan
 func (c *datahubServiceClient) CreateClusterPlannings(ctx context.Context, in *plannings.CreateClusterPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateClusterPlannings", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListPlannings(ctx context.Context, in *plannings.ListPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListPlanningsResponse, error) {
+	out := new(plannings.ListPlanningsResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ListPlannings", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -580,6 +711,15 @@ func (c *datahubServiceClient) ListClusterPlannings(ctx context.Context, in *pla
 	return out, nil
 }
 
+func (c *datahubServiceClient) CreatePredictions(ctx context.Context, in *predictions.CreatePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePredictions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datahubServiceClient) CreatePodPredictions(ctx context.Context, in *predictions.CreatePodPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePodPredictions", in, out, opts...)
@@ -628,6 +768,15 @@ func (c *datahubServiceClient) CreateNodePredictions(ctx context.Context, in *pr
 func (c *datahubServiceClient) CreateClusterPredictions(ctx context.Context, in *predictions.CreateClusterPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateClusterPredictions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListPredictions(ctx context.Context, in *predictions.ListPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListPredictionsResponse, error) {
+	out := new(predictions.ListPredictionsResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ListPredictions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -706,6 +855,15 @@ func (c *datahubServiceClient) WriteRawdata(ctx context.Context, in *rawdata.Wri
 	return out, nil
 }
 
+func (c *datahubServiceClient) CreateRecommendations(ctx context.Context, in *recommendations.CreateRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateRecommendations", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datahubServiceClient) CreatePodRecommendations(ctx context.Context, in *recommendations.CreatePodRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePodRecommendations", in, out, opts...)
@@ -754,6 +912,15 @@ func (c *datahubServiceClient) CreateNodeRecommendations(ctx context.Context, in
 func (c *datahubServiceClient) CreateClusterRecommendations(ctx context.Context, in *recommendations.CreateClusterRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateClusterRecommendations", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListRecommendations(ctx context.Context, in *recommendations.ListRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListRecommendationsResponse, error) {
+	out := new(recommendations.ListRecommendationsResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ListRecommendations", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -985,6 +1152,33 @@ func (c *datahubServiceClient) DeleteClusters(ctx context.Context, in *resources
 	return out, nil
 }
 
+func (c *datahubServiceClient) CreateSchemas(ctx context.Context, in *schemas.CreateSchemasRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateSchemas", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListSchemas(ctx context.Context, in *schemas.ListSchemasRequest, opts ...grpc.CallOption) (*schemas.ListSchemasResponse, error) {
+	out := new(schemas.ListSchemasResponse)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/ListSchemas", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) DeleteSchemas(ctx context.Context, in *schemas.DeleteSchemasRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteSchemas", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *datahubServiceClient) CreateSimulatedSchedulingScores(ctx context.Context, in *scores.CreateSimulatedSchedulingScoresRequest, opts ...grpc.CallOption) (*status.Status, error) {
 	out := new(status.Status)
 	err := c.cc.Invoke(ctx, "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateSimulatedSchedulingScores", in, out, opts...)
@@ -1077,6 +1271,14 @@ func (c *datahubServiceClient) GetWeaveScopeContainerDetails(ctx context.Context
 
 // DatahubServiceServer is the server API for DatahubService service.
 type DatahubServiceServer interface {
+	// Applications --------------------------------------------------
+	CreateApps(context.Context, *applications.CreateApplicationsRequest) (*status.Status, error)
+	ListApps(context.Context, *applications.ListApplicationsRequest) (*applications.ListApplicationsResponse, error)
+	DeleteApps(context.Context, *applications.DeleteApplicationsRequest) (*status.Status, error)
+	// Data --------------------------------------------------
+	ReadData(context.Context, *data.ReadDataRequest) (*data.ReadDataResponse, error)
+	WriteData(context.Context, *data.WriteDataRequest) (*status.Status, error)
+	DeleteData(context.Context, *data.DeleteDataRequest) (*status.Status, error)
 	// Events --------------------------------------------------
 	CreateEvents(context.Context, *events.CreateEventsRequest) (*status.Status, error)
 	ListEvents(context.Context, *events.ListEventsRequest) (*events.ListEventsResponse, error)
@@ -1088,12 +1290,14 @@ type DatahubServiceServer interface {
 	// Licenses --------------------------------------------------
 	GetLicense(context.Context, *empty.Empty) (*licenses.GetLicenseResponse, error)
 	// Metrics --------------------------------------------------
+	CreateMetrics(context.Context, *metrics.CreateMetricsRequest) (*status.Status, error)
 	CreatePodMetrics(context.Context, *metrics.CreatePodMetricsRequest) (*status.Status, error)
 	CreateControllerMetrics(context.Context, *metrics.CreateControllerMetricsRequest) (*status.Status, error)
 	CreateApplicationMetrics(context.Context, *metrics.CreateApplicationMetricsRequest) (*status.Status, error)
 	CreateNamespaceMetrics(context.Context, *metrics.CreateNamespaceMetricsRequest) (*status.Status, error)
 	CreateNodeMetrics(context.Context, *metrics.CreateNodeMetricsRequest) (*status.Status, error)
 	CreateClusterMetrics(context.Context, *metrics.CreateClusterMetricsRequest) (*status.Status, error)
+	ListMetrics(context.Context, *metrics.ListMetricsRequest) (*metrics.ListMetricsResponse, error)
 	ListPodMetrics(context.Context, *metrics.ListPodMetricsRequest) (*metrics.ListPodMetricsResponse, error)
 	ListControllerMetrics(context.Context, *metrics.ListControllerMetricsRequest) (*metrics.ListControllerMetricsResponse, error)
 	ListApplicationMetrics(context.Context, *metrics.ListApplicationMetricsRequest) (*metrics.ListApplicationMetricsResponse, error)
@@ -1103,12 +1307,14 @@ type DatahubServiceServer interface {
 	// Ping --------------------------------------------------
 	Ping(context.Context, *empty.Empty) (*status.Status, error)
 	// Plannings --------------------------------------------------
+	CreatePlannings(context.Context, *plannings.CreatePlanningsRequest) (*status.Status, error)
 	CreatePodPlannings(context.Context, *plannings.CreatePodPlanningsRequest) (*status.Status, error)
 	CreateControllerPlannings(context.Context, *plannings.CreateControllerPlanningsRequest) (*status.Status, error)
 	CreateApplicationPlannings(context.Context, *plannings.CreateApplicationPlanningsRequest) (*status.Status, error)
 	CreateNamespacePlannings(context.Context, *plannings.CreateNamespacePlanningsRequest) (*status.Status, error)
 	CreateNodePlannings(context.Context, *plannings.CreateNodePlanningsRequest) (*status.Status, error)
 	CreateClusterPlannings(context.Context, *plannings.CreateClusterPlanningsRequest) (*status.Status, error)
+	ListPlannings(context.Context, *plannings.ListPlanningsRequest) (*plannings.ListPlanningsResponse, error)
 	ListPodPlannings(context.Context, *plannings.ListPodPlanningsRequest) (*plannings.ListPodPlanningsResponse, error)
 	ListControllerPlannings(context.Context, *plannings.ListControllerPlanningsRequest) (*plannings.ListControllerPlanningsResponse, error)
 	ListApplicationPlannings(context.Context, *plannings.ListApplicationPlanningsRequest) (*plannings.ListApplicationPlanningsResponse, error)
@@ -1116,12 +1322,14 @@ type DatahubServiceServer interface {
 	ListNodePlannings(context.Context, *plannings.ListNodePlanningsRequest) (*plannings.ListNodePlanningsResponse, error)
 	ListClusterPlannings(context.Context, *plannings.ListClusterPlanningsRequest) (*plannings.ListClusterPlanningsResponse, error)
 	// Predictions --------------------------------------------------
+	CreatePredictions(context.Context, *predictions.CreatePredictionsRequest) (*status.Status, error)
 	CreatePodPredictions(context.Context, *predictions.CreatePodPredictionsRequest) (*status.Status, error)
 	CreateControllerPredictions(context.Context, *predictions.CreateControllerPredictionsRequest) (*status.Status, error)
 	CreateApplicationPredictions(context.Context, *predictions.CreateApplicationPredictionsRequest) (*status.Status, error)
 	CreateNamespacePredictions(context.Context, *predictions.CreateNamespacePredictionsRequest) (*status.Status, error)
 	CreateNodePredictions(context.Context, *predictions.CreateNodePredictionsRequest) (*status.Status, error)
 	CreateClusterPredictions(context.Context, *predictions.CreateClusterPredictionsRequest) (*status.Status, error)
+	ListPredictions(context.Context, *predictions.ListPredictionsRequest) (*predictions.ListPredictionsResponse, error)
 	ListPodPredictions(context.Context, *predictions.ListPodPredictionsRequest) (*predictions.ListPodPredictionsResponse, error)
 	ListControllerPredictions(context.Context, *predictions.ListControllerPredictionsRequest) (*predictions.ListControllerPredictionsResponse, error)
 	ListApplicationPredictions(context.Context, *predictions.ListApplicationPredictionsRequest) (*predictions.ListApplicationPredictionsResponse, error)
@@ -1132,12 +1340,14 @@ type DatahubServiceServer interface {
 	ReadRawdata(context.Context, *rawdata.ReadRawdataRequest) (*rawdata.ReadRawdataResponse, error)
 	WriteRawdata(context.Context, *rawdata.WriteRawdataRequest) (*status.Status, error)
 	// Recommendations --------------------------------------------------
+	CreateRecommendations(context.Context, *recommendations.CreateRecommendationsRequest) (*status.Status, error)
 	CreatePodRecommendations(context.Context, *recommendations.CreatePodRecommendationsRequest) (*status.Status, error)
 	CreateControllerRecommendations(context.Context, *recommendations.CreateControllerRecommendationsRequest) (*status.Status, error)
 	CreateApplicationRecommendations(context.Context, *recommendations.CreateApplicationRecommendationsRequest) (*status.Status, error)
 	CreateNamespaceRecommendations(context.Context, *recommendations.CreateNamespaceRecommendationsRequest) (*status.Status, error)
 	CreateNodeRecommendations(context.Context, *recommendations.CreateNodeRecommendationsRequest) (*status.Status, error)
 	CreateClusterRecommendations(context.Context, *recommendations.CreateClusterRecommendationsRequest) (*status.Status, error)
+	ListRecommendations(context.Context, *recommendations.ListRecommendationsRequest) (*recommendations.ListRecommendationsResponse, error)
 	ListPodRecommendations(context.Context, *recommendations.ListPodRecommendationsRequest) (*recommendations.ListPodRecommendationsResponse, error)
 	ListAvailablePodRecommendations(context.Context, *recommendations.ListPodRecommendationsRequest) (*recommendations.ListPodRecommendationsResponse, error)
 	ListControllerRecommendations(context.Context, *recommendations.ListControllerRecommendationsRequest) (*recommendations.ListControllerRecommendationsResponse, error)
@@ -1173,6 +1383,10 @@ type DatahubServiceServer interface {
 	// Used to stop generating predictions for the nodes
 	DeleteNodes(context.Context, *resources.DeleteNodesRequest) (*status.Status, error)
 	DeleteClusters(context.Context, *resources.DeleteClustersRequest) (*status.Status, error)
+	// Schemas --------------------------------------------------
+	CreateSchemas(context.Context, *schemas.CreateSchemasRequest) (*status.Status, error)
+	ListSchemas(context.Context, *schemas.ListSchemasRequest) (*schemas.ListSchemasResponse, error)
+	DeleteSchemas(context.Context, *schemas.DeleteSchemasRequest) (*status.Status, error)
 	// Scores --------------------------------------------------
 	CreateSimulatedSchedulingScores(context.Context, *scores.CreateSimulatedSchedulingScoresRequest) (*status.Status, error)
 	// Used to list system scores
@@ -1192,6 +1406,24 @@ type DatahubServiceServer interface {
 type UnimplementedDatahubServiceServer struct {
 }
 
+func (*UnimplementedDatahubServiceServer) CreateApps(ctx context.Context, req *applications.CreateApplicationsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreateApps not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListApps(ctx context.Context, req *applications.ListApplicationsRequest) (*applications.ListApplicationsResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListApps not implemented")
+}
+func (*UnimplementedDatahubServiceServer) DeleteApps(ctx context.Context, req *applications.DeleteApplicationsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method DeleteApps not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ReadData(ctx context.Context, req *data.ReadDataRequest) (*data.ReadDataResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ReadData not implemented")
+}
+func (*UnimplementedDatahubServiceServer) WriteData(ctx context.Context, req *data.WriteDataRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method WriteData not implemented")
+}
+func (*UnimplementedDatahubServiceServer) DeleteData(ctx context.Context, req *data.DeleteDataRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method DeleteData not implemented")
+}
 func (*UnimplementedDatahubServiceServer) CreateEvents(ctx context.Context, req *events.CreateEventsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreateEvents not implemented")
 }
@@ -1213,6 +1445,9 @@ func (*UnimplementedDatahubServiceServer) ListGpuPredictions(ctx context.Context
 func (*UnimplementedDatahubServiceServer) GetLicense(ctx context.Context, req *empty.Empty) (*licenses.GetLicenseResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method GetLicense not implemented")
 }
+func (*UnimplementedDatahubServiceServer) CreateMetrics(ctx context.Context, req *metrics.CreateMetricsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreateMetrics not implemented")
+}
 func (*UnimplementedDatahubServiceServer) CreatePodMetrics(ctx context.Context, req *metrics.CreatePodMetricsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreatePodMetrics not implemented")
 }
@@ -1230,6 +1465,9 @@ func (*UnimplementedDatahubServiceServer) CreateNodeMetrics(ctx context.Context,
 }
 func (*UnimplementedDatahubServiceServer) CreateClusterMetrics(ctx context.Context, req *metrics.CreateClusterMetricsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreateClusterMetrics not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListMetrics(ctx context.Context, req *metrics.ListMetricsRequest) (*metrics.ListMetricsResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListMetrics not implemented")
 }
 func (*UnimplementedDatahubServiceServer) ListPodMetrics(ctx context.Context, req *metrics.ListPodMetricsRequest) (*metrics.ListPodMetricsResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method ListPodMetrics not implemented")
@@ -1252,6 +1490,9 @@ func (*UnimplementedDatahubServiceServer) ListClusterMetrics(ctx context.Context
 func (*UnimplementedDatahubServiceServer) Ping(ctx context.Context, req *empty.Empty) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
+func (*UnimplementedDatahubServiceServer) CreatePlannings(ctx context.Context, req *plannings.CreatePlanningsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreatePlannings not implemented")
+}
 func (*UnimplementedDatahubServiceServer) CreatePodPlannings(ctx context.Context, req *plannings.CreatePodPlanningsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreatePodPlannings not implemented")
 }
@@ -1269,6 +1510,9 @@ func (*UnimplementedDatahubServiceServer) CreateNodePlannings(ctx context.Contex
 }
 func (*UnimplementedDatahubServiceServer) CreateClusterPlannings(ctx context.Context, req *plannings.CreateClusterPlanningsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreateClusterPlannings not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListPlannings(ctx context.Context, req *plannings.ListPlanningsRequest) (*plannings.ListPlanningsResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListPlannings not implemented")
 }
 func (*UnimplementedDatahubServiceServer) ListPodPlannings(ctx context.Context, req *plannings.ListPodPlanningsRequest) (*plannings.ListPodPlanningsResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method ListPodPlannings not implemented")
@@ -1288,6 +1532,9 @@ func (*UnimplementedDatahubServiceServer) ListNodePlannings(ctx context.Context,
 func (*UnimplementedDatahubServiceServer) ListClusterPlannings(ctx context.Context, req *plannings.ListClusterPlanningsRequest) (*plannings.ListClusterPlanningsResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method ListClusterPlannings not implemented")
 }
+func (*UnimplementedDatahubServiceServer) CreatePredictions(ctx context.Context, req *predictions.CreatePredictionsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreatePredictions not implemented")
+}
 func (*UnimplementedDatahubServiceServer) CreatePodPredictions(ctx context.Context, req *predictions.CreatePodPredictionsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreatePodPredictions not implemented")
 }
@@ -1305,6 +1552,9 @@ func (*UnimplementedDatahubServiceServer) CreateNodePredictions(ctx context.Cont
 }
 func (*UnimplementedDatahubServiceServer) CreateClusterPredictions(ctx context.Context, req *predictions.CreateClusterPredictionsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreateClusterPredictions not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListPredictions(ctx context.Context, req *predictions.ListPredictionsRequest) (*predictions.ListPredictionsResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListPredictions not implemented")
 }
 func (*UnimplementedDatahubServiceServer) ListPodPredictions(ctx context.Context, req *predictions.ListPodPredictionsRequest) (*predictions.ListPodPredictionsResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method ListPodPredictions not implemented")
@@ -1330,6 +1580,9 @@ func (*UnimplementedDatahubServiceServer) ReadRawdata(ctx context.Context, req *
 func (*UnimplementedDatahubServiceServer) WriteRawdata(ctx context.Context, req *rawdata.WriteRawdataRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method WriteRawdata not implemented")
 }
+func (*UnimplementedDatahubServiceServer) CreateRecommendations(ctx context.Context, req *recommendations.CreateRecommendationsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreateRecommendations not implemented")
+}
 func (*UnimplementedDatahubServiceServer) CreatePodRecommendations(ctx context.Context, req *recommendations.CreatePodRecommendationsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreatePodRecommendations not implemented")
 }
@@ -1347,6 +1600,9 @@ func (*UnimplementedDatahubServiceServer) CreateNodeRecommendations(ctx context.
 }
 func (*UnimplementedDatahubServiceServer) CreateClusterRecommendations(ctx context.Context, req *recommendations.CreateClusterRecommendationsRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreateClusterRecommendations not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListRecommendations(ctx context.Context, req *recommendations.ListRecommendationsRequest) (*recommendations.ListRecommendationsResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListRecommendations not implemented")
 }
 func (*UnimplementedDatahubServiceServer) ListPodRecommendations(ctx context.Context, req *recommendations.ListPodRecommendationsRequest) (*recommendations.ListPodRecommendationsResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method ListPodRecommendations not implemented")
@@ -1423,6 +1679,15 @@ func (*UnimplementedDatahubServiceServer) DeleteNodes(ctx context.Context, req *
 func (*UnimplementedDatahubServiceServer) DeleteClusters(ctx context.Context, req *resources.DeleteClustersRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method DeleteClusters not implemented")
 }
+func (*UnimplementedDatahubServiceServer) CreateSchemas(ctx context.Context, req *schemas.CreateSchemasRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreateSchemas not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListSchemas(ctx context.Context, req *schemas.ListSchemasRequest) (*schemas.ListSchemasResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListSchemas not implemented")
+}
+func (*UnimplementedDatahubServiceServer) DeleteSchemas(ctx context.Context, req *schemas.DeleteSchemasRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method DeleteSchemas not implemented")
+}
 func (*UnimplementedDatahubServiceServer) CreateSimulatedSchedulingScores(ctx context.Context, req *scores.CreateSimulatedSchedulingScoresRequest) (*status.Status, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method CreateSimulatedSchedulingScores not implemented")
 }
@@ -1456,6 +1721,114 @@ func (*UnimplementedDatahubServiceServer) GetWeaveScopeContainerDetails(ctx cont
 
 func RegisterDatahubServiceServer(s *grpc.Server, srv DatahubServiceServer) {
 	s.RegisterService(&_DatahubService_serviceDesc, srv)
+}
+
+func _DatahubService_CreateApps_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(applications.CreateApplicationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreateApps(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateApps",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreateApps(ctx, req.(*applications.CreateApplicationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListApps_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(applications.ListApplicationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListApps(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ListApps",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListApps(ctx, req.(*applications.ListApplicationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_DeleteApps_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(applications.DeleteApplicationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).DeleteApps(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteApps",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).DeleteApps(ctx, req.(*applications.DeleteApplicationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ReadData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(data.ReadDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ReadData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ReadData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ReadData(ctx, req.(*data.ReadDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_WriteData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(data.WriteDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).WriteData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/WriteData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).WriteData(ctx, req.(*data.WriteDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_DeleteData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(data.DeleteDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).DeleteData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).DeleteData(ctx, req.(*data.DeleteDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _DatahubService_CreateEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1584,6 +1957,24 @@ func _DatahubService_GetLicense_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatahubService_CreateMetrics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(metrics.CreateMetricsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreateMetrics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateMetrics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreateMetrics(ctx, req.(*metrics.CreateMetricsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatahubService_CreatePodMetrics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(metrics.CreatePodMetricsRequest)
 	if err := dec(in); err != nil {
@@ -1688,6 +2079,24 @@ func _DatahubService_CreateClusterMetrics_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatahubServiceServer).CreateClusterMetrics(ctx, req.(*metrics.CreateClusterMetricsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListMetrics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(metrics.ListMetricsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListMetrics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ListMetrics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListMetrics(ctx, req.(*metrics.ListMetricsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1818,6 +2227,24 @@ func _DatahubService_Ping_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatahubService_CreatePlannings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(plannings.CreatePlanningsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreatePlannings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePlannings",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreatePlannings(ctx, req.(*plannings.CreatePlanningsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatahubService_CreatePodPlannings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(plannings.CreatePodPlanningsRequest)
 	if err := dec(in); err != nil {
@@ -1922,6 +2349,24 @@ func _DatahubService_CreateClusterPlannings_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatahubServiceServer).CreateClusterPlannings(ctx, req.(*plannings.CreateClusterPlanningsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListPlannings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(plannings.ListPlanningsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListPlannings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ListPlannings",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListPlannings(ctx, req.(*plannings.ListPlanningsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2034,6 +2479,24 @@ func _DatahubService_ListClusterPlannings_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatahubService_CreatePredictions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(predictions.CreatePredictionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreatePredictions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/CreatePredictions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreatePredictions(ctx, req.(*predictions.CreatePredictionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatahubService_CreatePodPredictions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(predictions.CreatePodPredictionsRequest)
 	if err := dec(in); err != nil {
@@ -2138,6 +2601,24 @@ func _DatahubService_CreateClusterPredictions_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatahubServiceServer).CreateClusterPredictions(ctx, req.(*predictions.CreateClusterPredictionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListPredictions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(predictions.ListPredictionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListPredictions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ListPredictions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListPredictions(ctx, req.(*predictions.ListPredictionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2286,6 +2767,24 @@ func _DatahubService_WriteRawdata_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatahubService_CreateRecommendations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(recommendations.CreateRecommendationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreateRecommendations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateRecommendations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreateRecommendations(ctx, req.(*recommendations.CreateRecommendationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatahubService_CreatePodRecommendations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(recommendations.CreatePodRecommendationsRequest)
 	if err := dec(in); err != nil {
@@ -2390,6 +2889,24 @@ func _DatahubService_CreateClusterRecommendations_Handler(srv interface{}, ctx c
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatahubServiceServer).CreateClusterRecommendations(ctx, req.(*recommendations.CreateClusterRecommendationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListRecommendations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(recommendations.ListRecommendationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListRecommendations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ListRecommendations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListRecommendations(ctx, req.(*recommendations.ListRecommendationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2844,6 +3361,60 @@ func _DatahubService_DeleteClusters_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatahubService_CreateSchemas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(schemas.CreateSchemasRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreateSchemas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/CreateSchemas",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreateSchemas(ctx, req.(*schemas.CreateSchemasRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListSchemas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(schemas.ListSchemasRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListSchemas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/ListSchemas",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListSchemas(ctx, req.(*schemas.ListSchemasRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_DeleteSchemas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(schemas.DeleteSchemasRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).DeleteSchemas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteSchemas",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).DeleteSchemas(ctx, req.(*schemas.DeleteSchemasRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatahubService_CreateSimulatedSchedulingScores_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(scores.CreateSimulatedSchedulingScoresRequest)
 	if err := dec(in); err != nil {
@@ -3029,6 +3600,30 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DatahubServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CreateApps",
+			Handler:    _DatahubService_CreateApps_Handler,
+		},
+		{
+			MethodName: "ListApps",
+			Handler:    _DatahubService_ListApps_Handler,
+		},
+		{
+			MethodName: "DeleteApps",
+			Handler:    _DatahubService_DeleteApps_Handler,
+		},
+		{
+			MethodName: "ReadData",
+			Handler:    _DatahubService_ReadData_Handler,
+		},
+		{
+			MethodName: "WriteData",
+			Handler:    _DatahubService_WriteData_Handler,
+		},
+		{
+			MethodName: "DeleteData",
+			Handler:    _DatahubService_DeleteData_Handler,
+		},
+		{
 			MethodName: "CreateEvents",
 			Handler:    _DatahubService_CreateEvents_Handler,
 		},
@@ -3057,6 +3652,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _DatahubService_GetLicense_Handler,
 		},
 		{
+			MethodName: "CreateMetrics",
+			Handler:    _DatahubService_CreateMetrics_Handler,
+		},
+		{
 			MethodName: "CreatePodMetrics",
 			Handler:    _DatahubService_CreatePodMetrics_Handler,
 		},
@@ -3079,6 +3678,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateClusterMetrics",
 			Handler:    _DatahubService_CreateClusterMetrics_Handler,
+		},
+		{
+			MethodName: "ListMetrics",
+			Handler:    _DatahubService_ListMetrics_Handler,
 		},
 		{
 			MethodName: "ListPodMetrics",
@@ -3109,6 +3712,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _DatahubService_Ping_Handler,
 		},
 		{
+			MethodName: "CreatePlannings",
+			Handler:    _DatahubService_CreatePlannings_Handler,
+		},
+		{
 			MethodName: "CreatePodPlannings",
 			Handler:    _DatahubService_CreatePodPlannings_Handler,
 		},
@@ -3131,6 +3738,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateClusterPlannings",
 			Handler:    _DatahubService_CreateClusterPlannings_Handler,
+		},
+		{
+			MethodName: "ListPlannings",
+			Handler:    _DatahubService_ListPlannings_Handler,
 		},
 		{
 			MethodName: "ListPodPlannings",
@@ -3157,6 +3768,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _DatahubService_ListClusterPlannings_Handler,
 		},
 		{
+			MethodName: "CreatePredictions",
+			Handler:    _DatahubService_CreatePredictions_Handler,
+		},
+		{
 			MethodName: "CreatePodPredictions",
 			Handler:    _DatahubService_CreatePodPredictions_Handler,
 		},
@@ -3179,6 +3794,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateClusterPredictions",
 			Handler:    _DatahubService_CreateClusterPredictions_Handler,
+		},
+		{
+			MethodName: "ListPredictions",
+			Handler:    _DatahubService_ListPredictions_Handler,
 		},
 		{
 			MethodName: "ListPodPredictions",
@@ -3213,6 +3832,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _DatahubService_WriteRawdata_Handler,
 		},
 		{
+			MethodName: "CreateRecommendations",
+			Handler:    _DatahubService_CreateRecommendations_Handler,
+		},
+		{
 			MethodName: "CreatePodRecommendations",
 			Handler:    _DatahubService_CreatePodRecommendations_Handler,
 		},
@@ -3235,6 +3858,10 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateClusterRecommendations",
 			Handler:    _DatahubService_CreateClusterRecommendations_Handler,
+		},
+		{
+			MethodName: "ListRecommendations",
+			Handler:    _DatahubService_ListRecommendations_Handler,
 		},
 		{
 			MethodName: "ListPodRecommendations",
@@ -3335,6 +3962,18 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteClusters",
 			Handler:    _DatahubService_DeleteClusters_Handler,
+		},
+		{
+			MethodName: "CreateSchemas",
+			Handler:    _DatahubService_CreateSchemas_Handler,
+		},
+		{
+			MethodName: "ListSchemas",
+			Handler:    _DatahubService_ListSchemas_Handler,
+		},
+		{
+			MethodName: "DeleteSchemas",
+			Handler:    _DatahubService_DeleteSchemas_Handler,
 		},
 		{
 			MethodName: "CreateSimulatedSchedulingScores",

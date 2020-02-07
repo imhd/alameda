@@ -2,8 +2,9 @@ package v1alpha1
 
 import (
 	DaoMetric "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	K8sMetadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
@@ -20,7 +21,7 @@ import (
 func (s *ServiceV1alpha1) CreatePodMetrics(ctx context.Context, in *ApiMetrics.CreatePodMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreatePodMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreatePodMetricsRequestExtended{CreatePodMetricsRequest: *in}
+	requestExtended := metrics.CreatePodMetricsRequestExtended{CreatePodMetricsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -50,7 +51,7 @@ func (s *ServiceV1alpha1) ListPodMetrics(ctx context.Context, in *ApiMetrics.Lis
 		return s.ListPodMetricsDemo(ctx, in)
 	}
 
-	requestExt := FormatRequest.ListPodMetricsRequestExtended{Request: in}
+	requestExt := metrics.ListPodMetricsRequestExtended{Request: in}
 	if err = requestExt.Validate(); err != nil {
 		return &ApiMetrics.ListPodMetricsResponse{
 			Status: &status.Status{
@@ -75,7 +76,7 @@ func (s *ServiceV1alpha1) ListPodMetrics(ctx context.Context, in *ApiMetrics.Lis
 
 	datahubPodMetrics := make([]*ApiMetrics.PodMetric, 0)
 	for _, podMetric := range podMetricMap.MetricMap {
-		podMetricExtended := FormatResponse.PodMetricExtended{PodMetric: podMetric}
+		podMetricExtended := metrics2.PodMetricExtended{PodMetric: podMetric}
 		datahubPodMetric := podMetricExtended.ProduceMetrics()
 		datahubPodMetrics = append(datahubPodMetrics, datahubPodMetric)
 	}
@@ -162,7 +163,7 @@ func (s *ServiceV1alpha1) ListPodMetricsDemo(ctx context.Context, in *ApiMetrics
 	demoContainerMetric.MetricData = append(demoContainerMetric.MetricData, &demoMetricDataMem)
 
 	demoPodMetric := ApiMetrics.PodMetric{
-		ObjectMeta:       FormatResponse.NewObjectMeta(&tempObjectMeta),
+		ObjectMeta:       resources.NewObjectMeta(&tempObjectMeta),
 		ContainerMetrics: demoContainerMetricList,
 	}
 	demoPodMetricList = append(demoPodMetricList, &demoPodMetric)

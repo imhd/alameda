@@ -13,7 +13,7 @@ const (
 	KeycodeStatusNotActivated = 4
 	KeycodeStatusValid        = 5
 
-	MessageCPUCoreExceed      = "Cluster CPU cores (%s) exceed the licensed number of CPU cores (%s)"
+	MessageCPUCoreExceed = "Cluster CPU cores (%s) exceed the licensed number of CPU cores (%s)"
 )
 
 var KeycodeStatusName = map[int]string{

@@ -21,7 +21,7 @@ func getClusterNodesFromDB(dao DaoClusterType.NodeDAO, clusterName string) ([]*D
 	return ns, err
 }
 
-func GetAlamedaClusterCPUs(influxCfg *InternalInflux.Config) (int, error){
+func GetAlamedaClusterCPUs(influxCfg *InternalInflux.Config) (int, error) {
 	numCPU := 0
 	clusterName := ""
 	dbCluster := influxdb.NewClusterWithConfig(*influxCfg)

@@ -7,6 +7,13 @@ import (
 	"time"
 )
 
+type Condition struct {
+	Keys      []string
+	Values    []string
+	Operators []string
+	Types     []DataType
+}
+
 // QueryCondition Others query condition
 type QueryCondition struct {
 	StartTime                 *time.Time
@@ -14,6 +21,10 @@ type QueryCondition struct {
 	Timeout                   *time.Time
 	StepTime                  *time.Duration
 	TimestampOrder            Order
+	WhereClause               string
+	WhereCondition            []*Condition
+	Selects                   []string
+	Groups                    []string
 	Limit                     int
 	AggregateOverTimeFunction AggregateFunction
 }

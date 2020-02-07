@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.alameda.v1alpha1.datahub.common',
   syntax='proto3',
   serialized_options=_b('Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common'),
-  serialized_pb=_b('\n1alameda_api/v1alpha1/datahub/common/metrics.proto\x12,containersai.alameda.v1alpha1.datahub.common\x1a\x1fgoogle/protobuf/timestamp.proto\"s\n\x06Sample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tnum_value\x18\x03 \x01(\t\"\xb4\x01\n\nMetricData\x12M\n\x0bmetric_type\x18\x01 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12\x42\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x34.containersai.alameda.v1alpha1.datahub.common.Sample\x12\x13\n\x0bgranularity\x18\x03 \x01(\x03*\xa2\x01\n\nMetricType\x12\x1a\n\x16METRICS_TYPE_UNDEFINED\x10\x00\x12 \n\x1c\x43PU_USAGE_SECONDS_PERCENTAGE\x10\x01\x12\x16\n\x12MEMORY_USAGE_BYTES\x10\x02\x12\x15\n\x11POWER_USAGE_WATTS\x10\x03\x12\x17\n\x13TEMPERATURE_CELSIUS\x10\x04\x12\x0e\n\nDUTY_CYCLE\x10\x05*@\n\x0cResourceName\x12\x1b\n\x17RESOURCE_NAME_UNDEFINED\x10\x00\x12\x07\n\x03\x43PU\x10\x01\x12\n\n\x06MEMORY\x10\x02\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3')
+  serialized_pb=_b('\n1alameda_api/v1alpha1/datahub/common/metrics.proto\x12,containersai.alameda.v1alpha1.datahub.common\x1a\x1fgoogle/protobuf/timestamp.proto\"s\n\x06Sample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tnum_value\x18\x03 \x01(\t\"\xb4\x01\n\nMetricData\x12M\n\x0bmetric_type\x18\x01 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12\x42\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x34.containersai.alameda.v1alpha1.datahub.common.Sample\x12\x13\n\x0bgranularity\x18\x03 \x01(\x03*\xb6\x01\n\nMetricType\x12\x1a\n\x16METRICS_TYPE_UNDEFINED\x10\x00\x12 \n\x1c\x43PU_USAGE_SECONDS_PERCENTAGE\x10\x01\x12\x16\n\x12MEMORY_USAGE_BYTES\x10\x02\x12\x15\n\x11POWER_USAGE_WATTS\x10\x03\x12\x17\n\x13TEMPERATURE_CELSIUS\x10\x04\x12\x0e\n\nDUTY_CYCLE\x10\x05\x12\x12\n\x0e\x43URRENT_OFFSET\x10\x06*@\n\x0cResourceName\x12\x1b\n\x17RESOURCE_NAME_UNDEFINED\x10\x00\x12\x07\n\x03\x43PU\x10\x01\x12\n\n\x06MEMORY\x10\x02\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -56,11 +56,15 @@ _METRICTYPE = _descriptor.EnumDescriptor(
       name='DUTY_CYCLE', index=5, number=5,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CURRENT_OFFSET', index=6, number=6,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=433,
-  serialized_end=595,
+  serialized_end=615,
 )
 _sym_db.RegisterEnumDescriptor(_METRICTYPE)
 
@@ -86,8 +90,8 @@ _RESOURCENAME = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=597,
-  serialized_end=661,
+  serialized_start=617,
+  serialized_end=681,
 )
 _sym_db.RegisterEnumDescriptor(_RESOURCENAME)
 
@@ -98,6 +102,7 @@ MEMORY_USAGE_BYTES = 2
 POWER_USAGE_WATTS = 3
 TEMPERATURE_CELSIUS = 4
 DUTY_CYCLE = 5
+CURRENT_OFFSET = 6
 RESOURCE_NAME_UNDEFINED = 0
 CPU = 1
 MEMORY = 2

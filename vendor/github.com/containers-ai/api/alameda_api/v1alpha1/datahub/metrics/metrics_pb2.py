@@ -14,6 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 from alameda_api.v1alpha1.datahub.common import metrics_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2
+from alameda_api.v1alpha1.datahub.common import rawdata_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_rawdata__pb2
 from alameda_api.v1alpha1.datahub.resources import metadata_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_resources_dot_metadata__pb2
 
 
@@ -22,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.alameda.v1alpha1.datahub.metrics',
   syntax='proto3',
   serialized_options=_b('ZAgithub.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics'),
-  serialized_pb=_b('\n2alameda_api/v1alpha1/datahub/metrics/metrics.proto\x12-containersai.alameda.v1alpha1.datahub.metrics\x1a\x31\x61lameda_api/v1alpha1/datahub/common/metrics.proto\x1a\x35\x61lameda_api/v1alpha1/datahub/resources/metadata.proto\"n\n\x0f\x43ontainerMetric\x12\x0c\n\x04name\x18\x01 \x01(\t\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb8\x01\n\tPodMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12Y\n\x11\x63ontainer_metrics\x18\x02 \x03(\x0b\x32>.containersai.alameda.v1alpha1.datahub.metrics.ContainerMetric\"\xf8\x01\n\x10\x43ontrollerMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12\x43\n\x04kind\x18\x02 \x01(\x0e\x32\x35.containersai.alameda.v1alpha1.datahub.resources.Kind\x12M\n\x0bmetric_data\x18\x03 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb4\x01\n\x11\x41pplicationMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb2\x01\n\x0fNamespaceMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xad\x01\n\nNodeMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb0\x01\n\rClusterMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricDataBCZAgithub.com/containers-ai/api/alameda_api/v1alpha1/datahub/metricsb\x06proto3')
+  serialized_pb=_b('\n2alameda_api/v1alpha1/datahub/metrics/metrics.proto\x12-containersai.alameda.v1alpha1.datahub.metrics\x1a\x31\x61lameda_api/v1alpha1/datahub/common/metrics.proto\x1a\x31\x61lameda_api/v1alpha1/datahub/common/rawdata.proto\x1a\x35\x61lameda_api/v1alpha1/datahub/resources/metadata.proto\"n\n\x0f\x43ontainerMetric\x12\x0c\n\x04name\x18\x01 \x01(\t\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb8\x01\n\tPodMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12Y\n\x11\x63ontainer_metrics\x18\x02 \x03(\x0b\x32>.containersai.alameda.v1alpha1.datahub.metrics.ContainerMetric\"\xf8\x01\n\x10\x43ontrollerMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12\x43\n\x04kind\x18\x02 \x01(\x0e\x32\x35.containersai.alameda.v1alpha1.datahub.resources.Kind\x12M\n\x0bmetric_data\x18\x03 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb4\x01\n\x11\x41pplicationMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb2\x01\n\x0fNamespaceMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xad\x01\n\nNodeMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xb0\x01\n\rClusterMetric\x12P\n\x0bobject_meta\x18\x01 \x01(\x0b\x32;.containersai.alameda.v1alpha1.datahub.resources.ObjectMeta\x12M\n\x0bmetric_data\x18\x02 \x03(\x0b\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricData\"\xa9\x01\n\x0bWriteMetric\x12M\n\x0bmetric_type\x18\x01 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12K\n\nwrite_data\x18\x02 \x01(\x0b\x32\x37.containersai.alameda.v1alpha1.datahub.common.WriteDataBCZAgithub.com/containers-ai/api/alameda_api/v1alpha1/datahub/metricsb\x06proto3')
   ,
-  dependencies=[alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_resources_dot_metadata__pb2.DESCRIPTOR,])
+  dependencies=[alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_rawdata__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_resources_dot_metadata__pb2.DESCRIPTOR,])
 
 
 
@@ -62,8 +63,8 @@ _CONTAINERMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=207,
-  serialized_end=317,
+  serialized_start=258,
+  serialized_end=368,
 )
 
 
@@ -100,8 +101,8 @@ _PODMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=320,
-  serialized_end=504,
+  serialized_start=371,
+  serialized_end=555,
 )
 
 
@@ -145,8 +146,8 @@ _CONTROLLERMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=507,
-  serialized_end=755,
+  serialized_start=558,
+  serialized_end=806,
 )
 
 
@@ -183,8 +184,8 @@ _APPLICATIONMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=758,
-  serialized_end=938,
+  serialized_start=809,
+  serialized_end=989,
 )
 
 
@@ -221,8 +222,8 @@ _NAMESPACEMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=941,
-  serialized_end=1119,
+  serialized_start=992,
+  serialized_end=1170,
 )
 
 
@@ -259,8 +260,8 @@ _NODEMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1122,
-  serialized_end=1295,
+  serialized_start=1173,
+  serialized_end=1346,
 )
 
 
@@ -297,8 +298,46 @@ _CLUSTERMETRIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1298,
-  serialized_end=1474,
+  serialized_start=1349,
+  serialized_end=1525,
+)
+
+
+_WRITEMETRIC = _descriptor.Descriptor(
+  name='WriteMetric',
+  full_name='containersai.alameda.v1alpha1.datahub.metrics.WriteMetric',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='metric_type', full_name='containersai.alameda.v1alpha1.datahub.metrics.WriteMetric.metric_type', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='write_data', full_name='containersai.alameda.v1alpha1.datahub.metrics.WriteMetric.write_data', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1528,
+  serialized_end=1697,
 )
 
 _CONTAINERMETRIC.fields_by_name['metric_data'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2._METRICDATA
@@ -315,6 +354,8 @@ _NODEMETRIC.fields_by_name['object_meta'].message_type = alameda__api_dot_v1alph
 _NODEMETRIC.fields_by_name['metric_data'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2._METRICDATA
 _CLUSTERMETRIC.fields_by_name['object_meta'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_resources_dot_metadata__pb2._OBJECTMETA
 _CLUSTERMETRIC.fields_by_name['metric_data'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2._METRICDATA
+_WRITEMETRIC.fields_by_name['metric_type'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2._METRICTYPE
+_WRITEMETRIC.fields_by_name['write_data'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_rawdata__pb2._WRITEDATA
 DESCRIPTOR.message_types_by_name['ContainerMetric'] = _CONTAINERMETRIC
 DESCRIPTOR.message_types_by_name['PodMetric'] = _PODMETRIC
 DESCRIPTOR.message_types_by_name['ControllerMetric'] = _CONTROLLERMETRIC
@@ -322,6 +363,7 @@ DESCRIPTOR.message_types_by_name['ApplicationMetric'] = _APPLICATIONMETRIC
 DESCRIPTOR.message_types_by_name['NamespaceMetric'] = _NAMESPACEMETRIC
 DESCRIPTOR.message_types_by_name['NodeMetric'] = _NODEMETRIC
 DESCRIPTOR.message_types_by_name['ClusterMetric'] = _CLUSTERMETRIC
+DESCRIPTOR.message_types_by_name['WriteMetric'] = _WRITEMETRIC
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ContainerMetric = _reflection.GeneratedProtocolMessageType('ContainerMetric', (_message.Message,), {
@@ -372,6 +414,13 @@ ClusterMetric = _reflection.GeneratedProtocolMessageType('ClusterMetric', (_mess
   # @@protoc_insertion_point(class_scope:containersai.alameda.v1alpha1.datahub.metrics.ClusterMetric)
   })
 _sym_db.RegisterMessage(ClusterMetric)
+
+WriteMetric = _reflection.GeneratedProtocolMessageType('WriteMetric', (_message.Message,), {
+  'DESCRIPTOR' : _WRITEMETRIC,
+  '__module__' : 'alameda_api.v1alpha1.datahub.metrics.metrics_pb2'
+  # @@protoc_insertion_point(class_scope:containersai.alameda.v1alpha1.datahub.metrics.WriteMetric)
+  })
+_sym_db.RegisterMessage(WriteMetric)
 
 
 DESCRIPTOR._options = None

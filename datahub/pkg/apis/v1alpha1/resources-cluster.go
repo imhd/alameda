@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateClusters(ctx context.Context, in *ApiResources.C
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateClustersRequestExtended{CreateClustersRequest: *in}
+	requestExtended := resources.CreateClustersRequestExtended{CreateClustersRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -42,7 +42,7 @@ func (s *ServiceV1alpha1) CreateClusters(ctx context.Context, in *ApiResources.C
 func (s *ServiceV1alpha1) ListClusters(ctx context.Context, in *ApiResources.ListClustersRequest) (*ApiResources.ListClustersResponse, error) {
 	scope.Debug("Request received from ListClusters grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListClustersRequestExtended{ListClustersRequest: in}
+	requestExt := resources.ListClustersRequestExtended{ListClustersRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiResources.ListClustersResponse{
 			Status: &status.Status{
@@ -66,7 +66,7 @@ func (s *ServiceV1alpha1) ListClusters(ctx context.Context, in *ApiResources.Lis
 
 	clusters := make([]*ApiResources.Cluster, 0)
 	for _, clst := range clsts {
-		clusterExtended := FormatResponse.ClusterExtended{Cluster: clst}
+		clusterExtended := resources2.ClusterExtended{Cluster: clst}
 		cluster := clusterExtended.ProduceCluster()
 		clusters = append(clusters, cluster)
 	}
@@ -82,7 +82,7 @@ func (s *ServiceV1alpha1) ListClusters(ctx context.Context, in *ApiResources.Lis
 func (s *ServiceV1alpha1) DeleteClusters(ctx context.Context, in *ApiResources.DeleteClustersRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeleteClusters grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.DeleteClustersRequestExtended{DeleteClustersRequest: in}
+	requestExt := resources.DeleteClustersRequestExtended{DeleteClustersRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

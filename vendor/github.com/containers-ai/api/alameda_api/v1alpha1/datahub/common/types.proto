@@ -1,0 +1,46 @@
+// This file has messages related general definitions
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.common;
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common";
+
+enum ResourceBoundary {
+    RESOURCE_BOUNDARY_UNDEFINED = 0;
+    RESOURCE_RAW                = 1;
+    RESOURCE_UPPER_BOUND        = 2;
+    RESOURCE_LOWER_BOUND        = 3;
+}
+
+enum ResourceQuota {
+    RESOURCE_QUOTA_UNDEFINED = 0;
+    RESOURCE_LIMIT           = 1;
+    RESOURCE_REQUEST         = 2;
+    RESOURCE_INITIAL_LIMIT   = 3;
+    RESOURCE_INITIAL_REQUEST = 4;
+}
+
+enum DataType {
+    DATATYPE_UNDEFINED = 0;
+    DATATYPE_BOOL      = 1;
+    DATATYPE_INT       = 2;
+    DATATYPE_INT8      = 3;
+    DATATYPE_INT16     = 4;
+    DATATYPE_INT32     = 5;
+    DATATYPE_INT64     = 6;
+    DATATYPE_UINT      = 7;
+    DATATYPE_UINT8     = 8;
+    DATATYPE_UINT16    = 9;
+    DATATYPE_UINT32    = 10;
+    DATATYPE_UTIN64    = 11;
+    DATATYPE_FLOAT32   = 12;
+    DATATYPE_FLOAT64   = 13;
+    DATATYPE_STRING    = 14;
+}
+
+enum ColumnType {
+    COLUMNTYPE_UDEFINED = 0;
+    COLUMNTYPE_TAG      = 1;
+    COLUMNTYPE_FIELD    = 2;
+}

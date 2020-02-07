@@ -25,7 +25,7 @@ var (
 	InfluxConfig     *InternalInflux.Config
 	LdapConfig       *InternalLdap.Config
 	K8SClient        client.Client
-	ClusterCPUCores             = 0
+	ClusterCPUCores  = 0
 )
 
 type Keycode struct {

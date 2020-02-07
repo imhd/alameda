@@ -1,0 +1,32 @@
+// This file has messages related to read & write data
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.data;
+
+import "alameda_api/v1alpha1/datahub/data/data.proto";
+import "alameda_api/v1alpha1/datahub/data/types.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data";
+
+message WriteDataRequest {
+    schemas.SchemaMeta schema_meta = 1;
+    repeated WriteData write_data  = 2;
+}
+
+message ReadDataRequest {
+    schemas.SchemaMeta schema_meta = 1;
+    repeated ReadData  read_data   = 2;
+}
+
+message ReadDataResponse {
+    google.rpc.Status status = 1;
+    Data              data   = 2;
+}
+
+message DeleteDataRequest {
+    schemas.SchemaMeta  schema_meta = 1;
+    repeated DeleteData delete_data = 2;
+}

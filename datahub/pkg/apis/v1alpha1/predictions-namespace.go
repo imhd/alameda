@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/predictions"
+	predictions2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/predictions"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"golang.org/x/net/context"
@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateNamespacePredictions(ctx context.Context, in *ApiPredictions.CreateNamespacePredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNamespacePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateNamespacePredictionsRequestExtended{CreateNamespacePredictionsRequest: *in}
+	requestExtended := predictions.CreateNamespacePredictionsRequestExtended{CreateNamespacePredictionsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -39,7 +39,7 @@ func (s *ServiceV1alpha1) CreateNamespacePredictions(ctx context.Context, in *Ap
 func (s *ServiceV1alpha1) ListNamespacePredictions(ctx context.Context, in *ApiPredictions.ListNamespacePredictionsRequest) (*ApiPredictions.ListNamespacePredictionsResponse, error) {
 	scope.Debug("Request received from ListNamespacePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListNamespacePredictionsRequestExtended{Request: in}
+	requestExt := predictions.ListNamespacePredictionsRequestExtended{Request: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiPredictions.ListNamespacePredictionsResponse{
 			Status: &status.Status{
@@ -63,7 +63,7 @@ func (s *ServiceV1alpha1) ListNamespacePredictions(ctx context.Context, in *ApiP
 
 	datahubNamespacePredictions := make([]*ApiPredictions.NamespacePrediction, 0)
 	for _, namespacePrediction := range namespacesPredictionMap.MetricMap {
-		namespacePredictionExtended := FormatResponse.NamespacePredictionExtended{NamespacePrediction: namespacePrediction}
+		namespacePredictionExtended := predictions2.NamespacePredictionExtended{NamespacePrediction: namespacePrediction}
 		datahubNamespacePrediction := namespacePredictionExtended.ProducePredictions()
 		datahubNamespacePredictions = append(datahubNamespacePredictions, datahubNamespacePrediction)
 	}

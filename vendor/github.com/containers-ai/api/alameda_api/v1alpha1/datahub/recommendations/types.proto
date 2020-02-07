@@ -4,6 +4,10 @@ syntax = "proto3";
 
 package containersai.alameda.v1alpha1.datahub.recommendations;
 
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations";
@@ -33,4 +37,15 @@ message ControllerRecommendedSpecK8s {
     int32                     desired_replicas = 2;
     google.protobuf.Timestamp time             = 3;
     google.protobuf.Timestamp create_time      = 4;
+}
+
+message Recommendation {
+    schemas.SchemaMeta          schema_meta         = 1;
+    repeated RecommendationData recommendation_data = 2;
+}
+
+message RecommendationData {
+    common.MetricType    metric_type    = 1;
+    common.ResourceQuota resource_quota = 2;
+    common.ReadData      read_data      = 3;
 }

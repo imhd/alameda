@@ -8,8 +8,8 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/apis/v1alpha1"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	OperatorAPIs "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
+	//OperatorAPIs "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	//K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	DatahubV1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	DatahubKeycodes "github.com/containers-ai/api/datahub/keycodes"
@@ -18,8 +18,8 @@ import (
 	"google.golang.org/grpc/reflection"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/client/config"
-	"sigs.k8s.io/controller-runtime/pkg/manager"
+	//"sigs.k8s.io/controller-runtime/pkg/client/config"
+	//"sigs.k8s.io/controller-runtime/pkg/manager"
 )
 
 type Server struct {
@@ -38,7 +38,7 @@ func NewServer(cfg DatahubConfig.Config) (*Server, error) {
 		err error
 
 		server *Server
-		k8sCli client.Client
+		//k8sCli client.Client
 	)
 
 	// Validate datahub configuration
@@ -46,6 +46,7 @@ func NewServer(cfg DatahubConfig.Config) (*Server, error) {
 		return server, errors.New("Failed to validate datahub configuration: " + err.Error())
 	}
 
+	/*
 	// Instance kubernetes client
 	if k8sCli, err = K8SUtils.NewK8SClient(); err != nil {
 		return server, err
@@ -72,12 +73,13 @@ func NewServer(cfg DatahubConfig.Config) (*Server, error) {
 		scope.Errorf("failed to get cluster id: %s", err.Error())
 	}
 	cfg.ClusterUID = clusterId
+	*/
 
 	server = &Server{
 		err: make(chan error),
 
 		Config:    cfg,
-		K8SClient: k8sCli,
+		//K8SClient: k8sCli,
 	}
 
 	return server, nil

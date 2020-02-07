@@ -4,10 +4,12 @@ syntax = "proto3";
 
 package containersai.alameda.v1alpha1.datahub.plannings;
 
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
 import "alameda_api/v1alpha1/datahub/common/queries.proto";
 import "alameda_api/v1alpha1/datahub/plannings/plannings.proto";
 import "alameda_api/v1alpha1/datahub/plannings/types.proto";
 import "alameda_api/v1alpha1/datahub/resources/metadata.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings";
@@ -119,4 +121,19 @@ message ListClusterPlanningsRequest {
 message ListClusterPlanningsResponse {
     google.rpc.Status        status            = 1;
     repeated ClusterPlanning cluster_plannings = 2;
+}
+
+message CreatePlanningsRequest {
+    schemas.SchemaMeta     schema_meta = 1;
+    repeated WritePlanning plannings   = 2;
+}
+
+message ListPlanningsRequest {
+    common.QueryCondition query_condition = 1;
+    schemas.SchemaMeta    schema_meta     = 2;
+}
+
+message ListPlanningsResponse {
+    google.rpc.Status status    = 1;
+    RawPlanning       plannings = 2;
 }

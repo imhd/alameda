@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	DaoScore "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores"
 	DaoScoreTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
-	RequestExtend "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/scores"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiScores "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/scores"
 	"github.com/golang/protobuf/ptypes"
@@ -53,7 +53,7 @@ func (s *ServiceV1alpha1) ListSimulatedSchedulingScores(ctx context.Context, in 
 
 	scoreDAO := DaoScore.NewScoreDAO(*s.Config)
 
-	requestExt := RequestExtend.ListSimulatedSchedulingScoresRequestExtended{Request: in}
+	requestExt := scores.ListSimulatedSchedulingScoresRequestExtended{Request: in}
 	scoreDAOListRequest := requestExt.ProduceRequest()
 	scoreDAOSimulatedSchedulingScores, err := scoreDAO.ListSimulatedSchedulingScores(scoreDAOListRequest)
 	if err != nil {

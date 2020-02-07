@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoMetrics "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateNamespaceMetrics(ctx context.Context, in *ApiMetrics.CreateNamespaceMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNamespaceMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateNamespaceMetricsRequestExtended{CreateNamespaceMetricsRequest: *in}
+	requestExtended := metrics.CreateNamespaceMetricsRequestExtended{CreateNamespaceMetricsRequest: *in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -40,7 +40,7 @@ func (s *ServiceV1alpha1) CreateNamespaceMetrics(ctx context.Context, in *ApiMet
 func (s *ServiceV1alpha1) ListNamespaceMetrics(ctx context.Context, in *ApiMetrics.ListNamespaceMetricsRequest) (*ApiMetrics.ListNamespaceMetricsResponse, error) {
 	scope.Debug("Request received from ListNamespaceMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.ListNamespaceMetricsRequestExtended{Request: in}
+	requestExtended := metrics.ListNamespaceMetricsRequestExtended{Request: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &ApiMetrics.ListNamespaceMetricsResponse{
 			Status: &status.Status{
@@ -64,7 +64,7 @@ func (s *ServiceV1alpha1) ListNamespaceMetrics(ctx context.Context, in *ApiMetri
 	i := 0
 	datahubNamespaceMetrics := make([]*ApiMetrics.NamespaceMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
-		m := FormatResponse.NamespaceMetricExtended{NamespaceMetric: *metric}.ProduceMetrics()
+		m := metrics2.NamespaceMetricExtended{NamespaceMetric: *metric}.ProduceMetrics()
 		datahubNamespaceMetrics[i] = &m
 		i++
 	}

@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoMetrics "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateApplicationMetrics(ctx context.Context, in *ApiMetrics.CreateApplicationMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateApplicationMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateApplicationMetricsRequestExtended{CreateApplicationMetricsRequest: *in}
+	requestExtended := metrics.CreateApplicationMetricsRequestExtended{CreateApplicationMetricsRequest: *in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -40,7 +40,7 @@ func (s *ServiceV1alpha1) CreateApplicationMetrics(ctx context.Context, in *ApiM
 func (s *ServiceV1alpha1) ListApplicationMetrics(ctx context.Context, in *ApiMetrics.ListApplicationMetricsRequest) (*ApiMetrics.ListApplicationMetricsResponse, error) {
 	scope.Debug("Request received from ListApplicationMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.ListAppMetricsRequestExtended{Request: in}
+	requestExtended := metrics.ListAppMetricsRequestExtended{Request: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &ApiMetrics.ListApplicationMetricsResponse{
 			Status: &status.Status{
@@ -64,7 +64,7 @@ func (s *ServiceV1alpha1) ListApplicationMetrics(ctx context.Context, in *ApiMet
 	i := 0
 	datahubAppMetrics := make([]*ApiMetrics.ApplicationMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
-		m := FormatResponse.AppMetricExtended{AppMetric: *metric}.ProduceMetrics()
+		m := metrics2.AppMetricExtended{AppMetric: *metric}.ProduceMetrics()
 		datahubAppMetrics[i] = &m
 		i++
 	}

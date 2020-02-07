@@ -1,0 +1,14 @@
+// This file has messages related to recommendations of containers, pods, and nodes
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.schemas;
+
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas";
+
+message Schema {
+    SchemaMeta           schema_meta  = 1;
+    repeated Measurement measurements = 2;
+}

@@ -1,0 +1,32 @@
+// This file has messages related to metric data of containers, pods, and nodes
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.applications;
+
+import "alameda_api/v1alpha1/datahub/applications/applications.proto";
+import "alameda_api/v1alpha1/datahub/applications/types.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications";
+
+message CreateApplicationsRequest {
+    schemas.SchemaMeta        schema_meta  = 1;
+    repeated WriteApplication applications = 2;
+}
+
+message ListApplicationsRequest {
+    schemas.SchemaMeta       schema_meta  = 1;
+    repeated ReadApplication applications = 2;
+}
+
+message ListApplicationsResponse {
+    google.rpc.Status status       = 1;
+    Application       applications = 2;
+}
+
+message DeleteApplicationsRequest {
+    schemas.SchemaMeta         schema_meta  = 1;
+    repeated DeleteApplication applications = 2;
+}

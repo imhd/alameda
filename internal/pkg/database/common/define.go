@@ -2,6 +2,7 @@ package common
 
 import (
 	Common "github.com/containers-ai/api/common"
+	"time"
 )
 
 // Order enumerator
@@ -9,6 +10,9 @@ type Order = int
 
 // Aggregate function enumerator
 type AggregateFunction = int
+
+// Data type enumerator
+type DataType int
 
 // Sort order definition
 const (
@@ -23,6 +27,35 @@ const (
 	MaxOverTime AggregateFunction = 1
 	AvgOverTime AggregateFunction = 2
 )
+
+// Data type definition
+const (
+	Invalid DataType = iota
+	Bool
+	Int
+	Int8
+	Int16
+	Int32
+	Int64
+	Uint
+	Uint8
+	Uint16
+	Uint32
+	Uint64
+	Float32
+	Float64
+	String
+)
+
+type Row struct {
+    Time   *time.Time
+    Values []string
+}
+
+type Group struct {
+	Columns []string
+	Rows    []*Row
+}
 
 var (
 	AggregationOverTime = map[AggregateFunction]string{

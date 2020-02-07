@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoMetrics "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateClusterMetrics(ctx context.Context, in *ApiMetrics.CreateClusterMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateClusterMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateClusterMetricsRequestExtended{CreateClusterMetricsRequest: *in}
+	requestExtended := metrics.CreateClusterMetricsRequestExtended{CreateClusterMetricsRequest: *in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -40,7 +40,7 @@ func (s *ServiceV1alpha1) CreateClusterMetrics(ctx context.Context, in *ApiMetri
 func (s *ServiceV1alpha1) ListClusterMetrics(ctx context.Context, in *ApiMetrics.ListClusterMetricsRequest) (*ApiMetrics.ListClusterMetricsResponse, error) {
 	scope.Debug("Request received from ListClusterMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.ListClusterMetricsRequestExtended{Request: in}
+	requestExtended := metrics.ListClusterMetricsRequestExtended{Request: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &ApiMetrics.ListClusterMetricsResponse{
 			Status: &status.Status{
@@ -64,7 +64,7 @@ func (s *ServiceV1alpha1) ListClusterMetrics(ctx context.Context, in *ApiMetrics
 	i := 0
 	datahubClusterMetrics := make([]*ApiMetrics.ClusterMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
-		m := FormatResponse.ClusterMetricExtended{ClusterMetric: *metric}.ProduceMetrics()
+		m := metrics2.ClusterMetricExtended{ClusterMetric: *metric}.ProduceMetrics()
 		datahubClusterMetrics[i] = &m
 		i++
 	}

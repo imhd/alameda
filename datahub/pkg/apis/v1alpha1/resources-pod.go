@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -19,7 +19,7 @@ func (s *ServiceV1alpha1) CreatePods(ctx context.Context, in *ApiResources.Creat
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreatePodsRequestExtended{CreatePodsRequest: *in}
+	requestExtended := resources.CreatePodsRequestExtended{CreatePodsRequest: *in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -45,7 +45,7 @@ func (s *ServiceV1alpha1) CreatePods(ctx context.Context, in *ApiResources.Creat
 func (s *ServiceV1alpha1) ListPods(ctx context.Context, in *ApiResources.ListPodsRequest) (*ApiResources.ListPodsResponse, error) {
 	scope.Debug("Request received from ListAlamedaPods grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListPodsRequestExtended{ListPodsRequest: in}
+	requestExt := resources.ListPodsRequestExtended{ListPodsRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiResources.ListPodsResponse{
 			Status: &status.Status{
@@ -69,7 +69,7 @@ func (s *ServiceV1alpha1) ListPods(ctx context.Context, in *ApiResources.ListPod
 
 	pods := make([]*ApiResources.Pod, 0)
 	for _, pd := range pds {
-		podExtended := FormatResponse.PodExtended{Pod: pd}
+		podExtended := resources2.PodExtended{Pod: pd}
 		pod := podExtended.ProducePod()
 		pods = append(pods, pod)
 	}
@@ -88,7 +88,7 @@ func (s *ServiceV1alpha1) ListPods(ctx context.Context, in *ApiResources.ListPod
 func (s *ServiceV1alpha1) DeletePods(ctx context.Context, in *ApiResources.DeletePodsRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeletePods grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.DeletePodsRequestExtended{DeletePodsRequest: in}
+	requestExt := resources.DeletePodsRequestExtended{DeletePodsRequest: in}
 	if err := requestExt.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

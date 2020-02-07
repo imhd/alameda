@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoMetric "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateNodeMetrics(ctx context.Context, in *ApiMetrics.CreateNodeMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNodeMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateNodeMetricsRequestExtended{CreateNodeMetricsRequest: *in}
+	requestExtended := metrics.CreateNodeMetricsRequestExtended{CreateNodeMetricsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -39,7 +39,7 @@ func (s *ServiceV1alpha1) CreateNodeMetrics(ctx context.Context, in *ApiMetrics.
 func (s *ServiceV1alpha1) ListNodeMetrics(ctx context.Context, in *ApiMetrics.ListNodeMetricsRequest) (*ApiMetrics.ListNodeMetricsResponse, error) {
 	scope.Debug("Request received from ListNodeMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListNodeMetricsRequestExtended{Request: in}
+	requestExt := metrics.ListNodeMetricsRequestExtended{Request: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiMetrics.ListNodeMetricsResponse{
 			Status: &status.Status{
@@ -64,7 +64,7 @@ func (s *ServiceV1alpha1) ListNodeMetrics(ctx context.Context, in *ApiMetrics.Li
 
 	datahubNodeMetrics := make([]*ApiMetrics.NodeMetric, 0)
 	for _, nodeMetric := range nodesMetricMap.MetricMap {
-		nodeMetricExtended := FormatResponse.NodeMetricExtended{NodeMetric: nodeMetric}
+		nodeMetricExtended := metrics2.NodeMetricExtended{NodeMetric: nodeMetric}
 		datahubNodeMetric := nodeMetricExtended.ProduceMetrics()
 		datahubNodeMetrics = append(datahubNodeMetrics, datahubNodeMetric)
 	}

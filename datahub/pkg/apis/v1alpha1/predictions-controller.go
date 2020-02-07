@@ -2,8 +2,8 @@ package v1alpha1
 
 import (
 	DaoPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/predictions"
+	predictions2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/predictions"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"golang.org/x/net/context"
@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateControllerPredictions(ctx context.Context, in *ApiPredictions.CreateControllerPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateControllerPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := FormatRequest.CreateControllerPredictionsRequestExtended{CreateControllerPredictionsRequest: *in}
+	requestExtended := predictions.CreateControllerPredictionsRequestExtended{CreateControllerPredictionsRequest: *in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),
@@ -39,7 +39,7 @@ func (s *ServiceV1alpha1) CreateControllerPredictions(ctx context.Context, in *A
 func (s *ServiceV1alpha1) ListControllerPredictions(ctx context.Context, in *ApiPredictions.ListControllerPredictionsRequest) (*ApiPredictions.ListControllerPredictionsResponse, error) {
 	scope.Debug("Request received from ListControllerPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExt := FormatRequest.ListControllerPredictionsRequestExtended{Request: in}
+	requestExt := predictions.ListControllerPredictionsRequestExtended{Request: in}
 	if err := requestExt.Validate(); err != nil {
 		return &ApiPredictions.ListControllerPredictionsResponse{
 			Status: &status.Status{
@@ -63,7 +63,7 @@ func (s *ServiceV1alpha1) ListControllerPredictions(ctx context.Context, in *Api
 
 	datahubControllerPredictions := make([]*ApiPredictions.ControllerPrediction, 0)
 	for _, controllerPrediction := range controllersPredictionMap.MetricMap {
-		controllerPredictionExtended := FormatResponse.ControllerPredictionExtended{ControllerPrediction: controllerPrediction}
+		controllerPredictionExtended := predictions2.ControllerPredictionExtended{ControllerPrediction: controllerPrediction}
 		datahubControllerPrediction := controllerPredictionExtended.ProducePredictions()
 		datahubControllerPredictions = append(datahubControllerPredictions, datahubControllerPrediction)
 	}
